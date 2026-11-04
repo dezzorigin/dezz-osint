@@ -1,315 +1,50 @@
-<div align="center">
-  <img src="assets/header.svg" alt="dezz-osint header banner" width="100%" />
-</div>
+# Dezz Osint
 
-<div align="center">
+Dezz Osint — project by Nabil Aulia Dika (dezzorigin).
 
-[![Python >=3.10](https://img.shields.io/badge/python-%3E%3D3.10-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Version 0.2.0](https://img.shields.io/badge/version-0.2.0-white)](pyproject.toml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![MCP 2024-11-05](https://img.shields.io/badge/MCP-2024--11--05-purple)](mcp.json)
-[![Scope: passive](https://img.shields.io/badge/scope-passive%20recon-green)]()
-[![Tests: live](https://img.shields.io/badge/tests-live%20assertions-orange)](tests/smoke.py)
+## Status Proyek
 
-**[Perintah](#-perintah) · [Demo](#-demo) · [Instal](#-instal) · [MCP](#-mcp-server) · [Konfigurasi](#-konfigurasi) · [Verdict Engine](#-verdict-engine) · [Kontribusi](#-kontribusi)**
+**Selesai (production-ready)** _(README ada, build artifact ada (sudah di-build), ada folder test)_
 
-</div>
+## Tech Stack
 
-<br>
+Python
 
-<div align="center">
-  <img src="assets/ticker.svg" alt="Ticker" width="100%" />
-</div>
+## Struktur Proyek
 
-<br><br>
+```
+.env
+.env.example
+.gitignore
+Data/
+LICENSE
+README.md
+assets/
+dezz.py
+dezz/
+dezz_osint.egg-info/
+install.sh
+mcp.json
+pyproject.toml
+reports/
+requirements.txt
+server/
+skills/
+tests/
+```
 
-<div align="center">
-  <img src="assets/about.svg" alt="Buat apa tool ini" width="100%" />
-</div>
-
-**Bahasa gampangnya, dezz-osint bisa dipakai buat:**
-
-- **Cek nomor mencurigakan** — dapat info operator, daerah, format valid, dan link WhatsApp langsung. Cocok buat verifikasi nomor penipu.
-- **Lacak username** — cari satu nama pengguna di 112 situs sekaligus (cepat), atau ratusan situs (mode dalam). Ketahuan akunnya ada di mana saja.
-- **Periksa email bocor** — cek format, server mail, plus apakah email itu pernah muncul di kebocoran data atau log pencuri info.
-- **Intel IP dan domain** — lokasi dan provider IP, data DNS, subdomain dari crt.sh, info pendaftar domain, dan arsip Wayback.
-- **Bedah foto** — baca data EXIF: kamera apa, kapan diambil, dan apakah ada koordinat GPS yang nempel (peringatan privasi included).
-- **Satu laporan utuh** — perintah `dossier` (kupas tuntas) menebak jenis target lalu menjalankan semua engine yang cocok dan menyimpan hasilnya jadi satu file JSON.
-- **Kalahkan AI halu** — 12 engine yang sama bisa dipanggil AI assistant lewat MCP, jadi jawabannya berbasis hasil nyata.
-
-<br><br>
-
-<div align="center">
-  <img src="assets/commands.svg" alt="15 perintah" width="100%" />
-</div>
-
-| Perintah | Fungsinya | Butuh key? |
-|---|---|---|
-| `phone +62812…` | Operator / daerah / E.164 / link `wa.me` (+ cek online kalau key diset) | Tidak (opsional `GOOGLE_API_KEY`, `NUMVERIFY_API_KEY`) |
-| `username X` | Kandidat cepat 112 situs + data GitHub **terverifikasi** | Tidak |
-| `username X --engine maigret` | Scan dalam Maigret asli, ratusan situs, laporan JSON | Tidak (makan waktu menit) |
-| `username X --engine tookie` | Scan tookie-osint asli, 262 situs | Tidak (butuh checkout, menit) |
-| `email a@b.com` | Format + MX + Gravatar + Firefox Monitor + cek breach HudsonRock | Tidak |
-| `ip 8.8.8.8` | Geo / ISP / ASN via ip-api.com | Tidak (opsional `IPSTACK_API_KEY`) |
-| `domain example.com` | DNS-over-HTTPS + subdomain crt.sh + RDAP | Tidak |
-| `url https://…` | Security headers + snapshot Wayback CDX | Tidak |
-| `crawl https://…` | Sedot isi website: internal/eksternal, skrip, file, endpoint (Photon asli bila checkout ada, crawler bawaan bila tidak) | Tidak |
-| `exif photo.jpg` | Tag EXIF, petunjuk perangkat, GPS jadi link peta + peringatan privasi | Tidak (file lokal atau URL) |
-| `dl <link>` | Download video mp4 / audio mp3 (yt-dlp, 1000+ situs) → `Data/downloads/` | Tidak |
-| `github user` | Profil, repo, follower via API publik GitHub | Tidak (opsional `GITHUB_TOKEN`: 60 jadi 5.000 req/jam) |
-| `tor` | Gerbang kesiapan Tor — lapor status, menolak scan palsu tanpa Tor | Butuh service Tor untuk live scan |
-| `dossier <target>` | Tebak jenis target, jalankan engine yang cocok → `Data/dezz_<target>.json` | Tidak |
-| `run <target>` | Jalan pintas kupas tuntas — tebak jenis target lalu laporan penuh | Tidak |
-| `resources "kata"` | Cari di **3.793** referensi OSINT offline | Tidak |
-| `sf --search dns` | Pindai website menyeluruh (koleksi 233 alat SpiderFoot) | Tidak |
-| `mcp` | Jalankan MCP server via stdio | Tidak |
-
-<br><br>
-
-<div align="center">
-  <img src="assets/demo.svg" alt="Live demo" width="100%" />
-</div>
-
-<details>
-<summary><b>Contoh pemakaian per perintah (klik buka)</b></summary>
+## Getting Started
 
 ```bash
-dezz phone +6281234567890
-# operator, daerah, valid, format E.164, link wa.me
-# cek online jalan hanya jika key diset, kalau tidak tertulis SKIP
-
-dezz username torvalds                          # cepat: kandidat + GitHub terverifikasi
-dezz username torvalds --engine maigret         # dalam: scan Maigret asli (menit)
-dezz username torvalds --engine tookie          # lebar: scan tookie 262 situs (menit)
-# mode cepat melabeli kandidat UNVERIFIED — konfirmasi manual.
-# hanya hasil API GitHub yang ditandai [verified].
-
-dezz email some@example.com
-# {"valid_format": true, "mx_records": [...], "gravatar": {...},
-#  "firefox": {"checked": true, "exists": true},
-#  "hudson_rock": {"checked": true, "compromised": false}}
-# compromised = true berarti email muncul di log pencuri info — ganti password.
-
-dezz ip 8.8.8.8
-dezz domain example.com        # DNS + subdomain crt.sh + RDAP
-dezz url https://example.com   # headers + Wayback
-dezz crawl https://example.com # crawl Photon penuh (~1 menit)
-
-dezz github torvalds           # profil + repo + follower
-dezz exif photo.jpg            # EXIF + GPS + peringatan privasi
-dezz dl <link-yt> --audio      # info dulu, lalu mp3 ke Data/downloads/
-dezz tor                       # status Tor; butuh daemon Tor untuk live scan
-
-dezz dossier example.com
-dezz dossier some@example.com
-dezz dossier torvalds --deep-username   # kupas tuntas + satu pass Maigret asli
-# report -> Data/dezz_example.com.json
-
-dezz resources "subdomain" --limit 10
-dezz resources "" --category "Social Media" --limit 20
-
-dezz sf --search dns           # cari alat pemindai
-dezz sf example.com            # dapat perintah pemindaian siap jalan manual
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python main.py
 ```
 
-</details>
+## Lisensi
 
-<br><br>
+MIT — lihat file [LICENSE](./LICENSE).
 
-<div align="center">
-  <img src="assets/install.svg" alt="Instal 60 detik" width="100%" />
-</div>
-
-<details>
-<summary><b>Opsi instal lengkap (klik buka)</b></summary>
-
-**Cara 1 — satu baris** (termudah, `dezz` tertaut ke `~/.local/bin`):
-
-```bash
-curl -sSL https://raw.githubusercontent.com/dezzorigin/dezz-osint/main/install.sh | bash
-```
-
-**Cara 2 — pip dari GitHub:**
-
-```bash
-pip install git+https://github.com/dezzorigin/dezz-osint.git
-dezz phone +6281234567890
-```
-
-**Cara 3 — manual** (buat ngoprek):
-
-```bash
-git clone https://github.com/dezzorigin/dezz-osint.git
-cd dezz-osint
-python3 -m venv .venv
-.venv/bin/pip install -e .   # editable: perintah `dezz` langsung aktif
-cp .env.example .env         # opsional — semua fitur turun grasi tanpa key
-```
-
-Alias harian (kalau lewati `pip install -e`):
-
-```bash
-alias dezz="/abs/path/to/dezz-osint/.venv/bin/python /abs/path/to/dezz-osint/dezz.py"
-```
-
-**Checkout engine dalam** (opsional — clone sejajar folder `dezz-osint`, terdeteksi otomatis; atau set `TOOKIE_DIR` / `PHOTON_DIR` / `SPIDERFOOT_DIR` / `MAIGRET_DIR`):
-
-```bash
-cd /path/ke/Default\ Project   # folder yang berisi dezz-osint/
-git clone https://github.com/Alfredredbird/tookie-osint.git  # username --engine tookie
-git clone https://github.com/s0md3v/Photon.git                # crawl
-git clone https://github.com/smicallef/spiderfoot.git        # sf live scan
-```
-
-Cek instalasi:
-
-```bash
-.venv/bin/python tests/smoke.py
-```
-
-</details>
-
-<br><br>
-
-<div align="center">
-  <img src="assets/techstack.svg" alt="Tech stack" width="100%" />
-</div>
-
-- **`dezz/engines/`** — engine cepat bawaan: phone, IP, domain, URL, GitHub, email, EXIF.
-- **`dezz/adapters/`** — pembungkus tipis yang memanggil tools upstream asli (Maigret, tookie, Photon, katalog SpiderFoot) lalu memparsing outputnya. Upstream update, dezz ikut dapat.
-- **`dezz/mcp/`** — satu-satunya sumber definisi 12 MCP tools + server stdio.
-- **`dezz/orchestrator.py`** — `dossier()`: tebak jenis target, jalankan yang cocok, gabung, simpan JSON.
-
-<br><br>
-
-<div align="center">
-  <img src="assets/stats.svg" alt="Angka teruji" width="100%" />
-</div>
-
-<details>
-<summary><b>Verdict tiap repo upstream (klik buka)</b></summary>
-
-Log lengkap: [`dezz/docs/SOURCES.md`](dezz/docs/SOURCES.md) — termasuk yang gagal.
-
-| Verdict | Artinya | Contoh |
-|---|---|---|
-| `[WIRED]` | Lolos live test, masuk CLI | Maigret, tookie-osint, Photon, katalog SpiderFoot, 3 awesome-list |
-| `[GATED]` | Asli, tapi butuh sesuatu yang mungkin tak ada | TorBot (butuh daemon Tor), pola robin (butuh Tor + LLM key) |
-| `[REF]` | Referensi metodologi, bukan executable | Skills Claude-OSINT |
-| `[DITOLAK]` | Dievaluasi, terbukti rusak/tak cocok, **tidak** dikapalkan | theHarvester (syntax upstream rusak + butuh Python 3.14), X-osint (GUI tkinter, tak bisa headless), daftar tweet-digest |
-
-Nemu engine yang cetak sukses tanpa kerja nyata — itu bug, laporkan.
-
-**Testing:**
-
-```bash
-.venv/bin/python tests/smoke.py
-```
-
-Asertasi live ke servis asli (GitHub API, ip-api, DNS, crt.sh), nol mock. Butuh internet; sebagian cek butuh checkout opsional. Engine gagal dilaporkan, tidak pernah dilewati diam-diam.
-
-</details>
-
-<br><br>
-
-## 🧠 Skill (AI assistant)
-
-[`skills/dezz-osint/SKILL.md`](skills/dezz-osint/SKILL.md) — routing target,
-aturan output, dan guardrail buat agen. Install: copy foldernya ke
-`~/.claude/skills/` atau `~/.agents/skills/`, restart session.
-
-## MCP server
-
-Server stdio JSON-RPC, MCP `2024-11-05`, **13 tools** — engine yang sama, bisa dipanggil agen:
-
-`phone_lookup` · `username_search` (`fast`/`maigret`/`tookie`) · `email_recon` · `ip_lookup` · `domain_recon` · `github_lookup` · `url_recon` · `web_crawl` · `image_exif` · `media_download` · `osint_resources` · `spiderfoot_plan` · `full_dossier`
-
-<details>
-<summary><b>Contoh config klien (klik buka)</b></summary>
-
-Tes server:
-
-```bash
-echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
-  | .venv/bin/python -m dezz.mcp.server
-```
-
-Claude Desktop / opencode — salin [`mcp.json`](mcp.json), betulkan `cwd`:
-
-```json
-{ "mcpServers": { "dezz-osint": {
-    "command": "python",
-    "args": ["-m", "dezz.mcp.server"],
-    "cwd": "/abs/path/to/dezz-osint" } } }
-```
-
-Atau dari CLI: `dezz mcp`
-
-</details>
-
-<br>
-
-## 🖥️ Backend web (dezz-extract)
-
-`server/` — API ekstraksi media milik sendiri (yt-dlp) buat web downloader,
-pengganti Cobalt yang mati (`auth.jwt.missing`). Frontend DezDownload hidup
-lagi cukup dengan 1 env: `COBALT_API_URL=<server-ini>`. Lihat
-[`server/README.md`](server/README.md); patch siap pakai untuk repo
-DezDownload (cabut Cobalt + rebrand Downloadezz + slot iklan):
-[`server/downloadezz.patch`](server/downloadezz.patch).
-
-<br>
-
-## Konfigurasi
-
-Salin `.env.example` jadi `.env`, isi **hanya yang kamu punya**. Semua fitur jalan tanpa key kecuali ditandai wajib.
-
-<details>
-<summary><b>Tabel variabel (klik buka)</b></summary>
-
-| Variabel | Dipakai oleh | Wajib? |
-|---|---|---|
-| `GITHUB_TOKEN` | API GitHub (60 jadi 5.000 req/jam) | Tidak |
-| `GOOGLE_API_KEY` + `GOOGLE_CX` | Lookup Google untuk phone | Tidak |
-| `NUMVERIFY_API_KEY` | Validasi phone online | Tidak |
-| `IPSTACK_API_KEY` | Fallback IP (ip-api.com primer) | Tidak |
-| `RAPIDAPI_WHATSAPP_KEY` | Lookup WhatsApp | Tidak |
-| `NETRA_TIMEOUT` / `NETRA_WORKERS` | Tuning HTTP (default 12 dtk / 10) | Tidak |
-| `TOOKIE_DIR` / `PHOTON_DIR` / `SPIDERFOOT_DIR` / `MAIGRET_DIR` | Checkout engine dalam | Tidak (terdeteksi otomatis) |
-
-Key tinggal di `.env` (di-gitignore), tidak pernah di source. Lihat [`.env.example`](.env.example).
-
-</details>
-
-<br><br>
-
-<div align="center">
-  <img src="assets/legal.svg" alt="Batas pakai" width="100%" />
-</div>
-
-<br><br>
-
-<div align="center">
-  <img src="assets/contact.svg" alt="Kontak dan kontribusi" width="100%" />
-</div>
-
-1. Fork, branch, diff kecil.
-2. Engine baru? Taruh di `dezz/engines/` (cepat) atau `dezz/adapters/` (pembungkus upstream), sambungkan di `cli.py` + `mcp/tools.py`, tambah asertasi **live** di `tests/smoke.py`. Tanpa mock untuk perilaku network.
-3. Update `SOURCES.md` dengan verdict upstream-nya.
-4. `python tests/smoke.py` harus hijau sebelum push.
-
-**Roadmap:** mode output ala sherlock · cek email ala holehe (yang upstream-nya masih hidup) · cache `--cache-ttl` · laporan kupas-tuntas HTML · image Docker · playbook pemindaian sebagai MCP prompts. PR dipersilakan — terutama **adapter** baru yang bawa live test.
-
-**Terima kasih untuk proyek opensource yang dipakai dezz-osint:** [DIGI-NETRA](https://github.com/pwnxotus/DIGI-NETRA) · [Maigret](https://github.com/soxoj/maigret) · [SpiderFoot](https://github.com/smicallef/spiderfoot) · [Photon](https://github.com/s0md3v/Photon) · [tookie-osint](https://github.com/Alfredredbird/tookie-osint) · [TorBot](https://github.com/DedSecInside/TorBot) · [robin](https://github.com/apurvsinghgautam/robin) (referensi pola MCP) · katalog awesome-OSINT oleh [jivoi](https://github.com/jivoi/awesome-osint), [Astrosp](https://github.com/Astrosp/Awesome-OSINT-List) dan [Ph055a](https://github.com/Ph055a/OSINT_Collection).
-
-<br><br>
-
-<div align="center">
-  <img src="assets/quote.svg" alt="Dialogue quote" width="100%" />
-</div>
-
-<br><br><br>
-
-<div align="center">
-  <img src="assets/footer.svg" alt="Footer banner" width="100%" />
-</div>
+---
+_Dibuat dan dikelola oleh Nabil Aulia Dika. Kontribusi dan issue welcome._
