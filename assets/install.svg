@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="190" viewBox="0 0 900 190" fill="none">
+  <!-- Container -->
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="12"/>
+  <rect x="1" y="1" width="898" height="188" rx="11" fill="none" stroke="#262626" stroke-width="1"/>
+
+  <!-- Badge Header -->
+  <g transform="translate(30, 24)">
+    <rect x="0" y="0" width="170" height="22" rx="4" fill="#171717" stroke="#3f3f46" stroke-width="1"/>
+    <text x="85" y="15" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10.5" font-weight="700" fill="#ffffff" letter-spacing="1.5">INSTAL 60 DETIK</text>
+  </g>
+
+  <!-- Steps -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="13">
+    <text x="30" y="76" fill="#71717a">[1]</text>
+    <text x="62" y="76" fill="#e4e4e7">git clone https://github.com/dezzorigin/dezz-osint.git</text>
+    <text x="30" y="106" fill="#71717a">[2]</text>
+    <text x="62" y="106" fill="#e4e4e7">python3 -m venv .venv &#38;&#38; .venv/bin/pip install -e .</text>
+    <text x="30" y="136" fill="#71717a">[3]</text>
+    <text x="62" y="136" fill="#ffffff">dezz phone +6281234567890</text>
+  </g>
+
+  <text x="30" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="400" fill="#71717a">atau satu baris: curl -sSL raw.githubusercontent.com/dezzorigin/dezz-osint/main/install.sh | bash</text>
+</svg>

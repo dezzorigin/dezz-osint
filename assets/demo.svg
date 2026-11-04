@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="250" viewBox="0 0 900 250" fill="none">
+  <!-- Container -->
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="12"/>
+  <rect x="1" y="1" width="898" height="248" rx="11" fill="none" stroke="#262626" stroke-width="1"/>
+
+  <!-- Terminal bar -->
+  <circle cx="34" cy="30" r="6" fill="#3f3f46"/>
+  <circle cx="54" cy="30" r="6" fill="#3f3f46"/>
+  <circle cx="74" cy="30" r="6" fill="#3f3f46"/>
+  <text x="450" y="35" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" font-weight="600" fill="#71717a" letter-spacing="1">terminal &#8212; live demo</text>
+  <line x1="1" y1="52" x2="899" y2="52" stroke="#262626" stroke-width="1"/>
+
+  <!-- Terminal body -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="13">
+    <text x="30" y="86" fill="#ffffff">$ dezz dossier example.com</text>
+    <text x="30" y="114" fill="#4ade80">[+] domain &#8212; ok &#183; DNS + crt.sh subdomains + RDAP</text>
+    <text x="30" y="140" fill="#4ade80">[+] url &#8212; ok &#183; security headers + Wayback snapshots</text>
+    <text x="30" y="166" fill="#4ade80">[+] resources &#8212; ok &#183; 5 referensi katalog offline</text>
+    <text x="30" y="192" fill="#a1a1aa">report -&gt; Data/dezz_example.com.json</text>
+    <text x="30" y="222" fill="#ffffff">$ dezz email some@example.com <rect x="318" y="210" width="9" height="16" fill="#ffffff"/></text>
+  </g>
+</svg>

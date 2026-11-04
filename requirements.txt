@@ -1,0 +1,13 @@
+pyfiglet
+rich
+requests
+beautifulsoup4
+phonenumbers
+python-dotenv
+maigret
+pillow
+piexif
+selenium
+tld
+colorama
+yt-dlp

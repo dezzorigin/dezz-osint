@@ -1,0 +1,1400 @@
+[
+ {
+  "module": "sfp__stor_db",
+  "name": "Storage",
+  "summary": "Stores scan results into the back-end SpiderFoot database. You will need this.",
+  "useCases": ""
+ },
+ {
+  "module": "sfp__stor_stdout",
+  "name": "Command-line output",
+  "summary": "Dumps output to standard out. Used for when a SpiderFoot scan is run via the command-line.",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_abstractapi",
+  "name": "AbstractAPI",
+  "summary": "Look up domain, phone and IP address information from AbstractAPI.",
+  "useCases": "[\"Passive\", \"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_abusech",
+  "name": "abuse.ch",
+  "summary": "Check if a host/domain, IP address or netblock is malicious according to Abuse.ch.",
+  "useCases": "[\"Passive\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_abuseipdb",
+  "name": "AbuseIPDB",
+  "summary": "Check if an IP address is malicious according to AbuseIPDB.com blacklist.",
+  "useCases": "[\"Passive\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_abusix",
+  "name": "Abusix Mail Intelligence",
+  "summary": "Check if a netblock or IP address is in the Abusix Mail Intelligence blacklist.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_accounts",
+  "name": "Account Finder",
+  "summary": "Look for possible associated accounts on over 500 social and other websites such as Instagram, Reddit, etc.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_adblock",
+  "name": "AdBlock Check",
+  "summary": "Check if linked pages would be blocked by AdBlock Plus.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_adguard_dns",
+  "name": "AdGuard DNS",
+  "summary": "Check if a host would be blocked by AdGuard DNS.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_ahmia",
+  "name": "Ahmia",
+  "summary": "Search Tor 'Ahmia' search engine for mentions of the target.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_alienvault",
+  "name": "AlienVault OTX",
+  "summary": "Obtain information from AlienVault Open Threat Exchange (OTX)",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_alienvaultiprep",
+  "name": "AlienVault IP Reputation",
+  "summary": "Check if an IP or netblock is malicious according to the AlienVault IP Reputation database.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_apple_itunes",
+  "name": "Apple iTunes",
+  "summary": "Search Apple iTunes for mobile apps.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_archiveorg",
+  "name": "Archive.org",
+  "summary": "Identifies historic versions of interesting files/pages from the Wayback Machine.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_arin",
+  "name": "ARIN",
+  "summary": "Queries ARIN registry for contact information.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_azureblobstorage",
+  "name": "Azure Blob Finder",
+  "summary": "Search for potential Azure blobs associated with the target and attempt to list their contents.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_base64",
+  "name": "Base64 Decoder",
+  "summary": "Identify Base64-encoded strings in URLs, often revealing interesting hidden information.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_bgpview",
+  "name": "BGPView",
+  "summary": "Obtain network information from BGPView API.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_binaryedge",
+  "name": "BinaryEdge",
+  "summary": "Obtain information from BinaryEdge.io Internet scanning systems, including breaches, vulnerabilities, torrents and passive DNS.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_bingsearch",
+  "name": "Bing",
+  "summary": "Obtain information from bing to identify sub-domains and links.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_bingsharedip",
+  "name": "Bing (Shared IPs)",
+  "summary": "Search Bing for hosts sharing the same IP.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_binstring",
+  "name": "Binary String Extractor",
+  "summary": "Attempt to identify strings in binary content.",
+  "useCases": "[\"Footprint\"]"
+ },
+ {
+  "module": "sfp_bitcoin",
+  "name": "Bitcoin Finder",
+  "summary": "Identify bitcoin addresses in scraped webpages.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_bitcoinabuse",
+  "name": "sfp_bitcoinabuse",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_bitcoinwhoswho",
+  "name": "Bitcoin Who's Who",
+  "summary": "Check for Bitcoin addresses against the Bitcoin Who's Who database of suspect/malicious addresses.",
+  "useCases": "[\"Passive\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_blockchain",
+  "name": "Blockchain",
+  "summary": "Queries blockchain.info to find the balance of identified bitcoin wallet addresses.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_blocklistde",
+  "name": "blocklist.de",
+  "summary": "Check if a netblock or IP is malicious according to blocklist.de.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_botscout",
+  "name": "BotScout",
+  "summary": "Searches BotScout.com's database of spam-bot IP addresses and e-mail addresses.",
+  "useCases": "[\"Passive\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_botvrij",
+  "name": "botvrij.eu",
+  "summary": "Check if a domain is malicious according to botvrij.eu.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_builtwith",
+  "name": "BuiltWith",
+  "summary": "Query BuiltWith.com's Domain API for information about your target's web technology stack, e-mail addresses and more.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_c99",
+  "name": "sfp_c99",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_callername",
+  "name": "CallerName",
+  "summary": "Lookup US phone number location and reputation information.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_censys",
+  "name": "Censys",
+  "summary": "Obtain host information from Censys.io.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_certspotter",
+  "name": "CertSpotter",
+  "summary": "Gather information about SSL certificates from SSLMate CertSpotter API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_cinsscore",
+  "name": "CINS Army List",
+  "summary": "Check if a netblock or IP address is malicious according to Collective Intelligence Network Security (CINS) Army list.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_circllu",
+  "name": "CIRCL.LU",
+  "summary": "Obtain information from CIRCL.LU's Passive DNS and Passive SSL databases.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_citadel",
+  "name": "Leak-Lookup",
+  "summary": "Searches Leak-Lookup.com's database of breaches.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_cleanbrowsing",
+  "name": "CleanBrowsing.org",
+  "summary": "Check if a host would be blocked by CleanBrowsing.org DNS content filters.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_cleantalk",
+  "name": "CleanTalk Spam List",
+  "summary": "Check if a netblock or IP address is on CleanTalk.org's spam IP list.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_clearbit",
+  "name": "Clearbit",
+  "summary": "Check for names, addresses, domains and more based on lookups of e-mail addresses on clearbit.com.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_cloudflaredns",
+  "name": "CloudFlare DNS",
+  "summary": "Check if a host would be blocked by CloudFlare DNS.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_coinblocker",
+  "name": "CoinBlocker Lists",
+  "summary": "Check if a domain appears on CoinBlocker lists.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_commoncrawl",
+  "name": "CommonCrawl",
+  "summary": "Searches for URLs found through CommonCrawl.org.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_comodo",
+  "name": "Comodo Secure DNS",
+  "summary": "Check if a host would be blocked by Comodo Secure DNS.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_company",
+  "name": "Company Name Extractor",
+  "summary": "Identify company names in any obtained data.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_cookie",
+  "name": "Cookie Extractor",
+  "summary": "Extract Cookies from HTTP headers.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_countryname",
+  "name": "Country Name Extractor",
+  "summary": "Identify country names in any obtained data.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_creditcard",
+  "name": "Credit Card Number Extractor",
+  "summary": "Identify Credit Card Numbers in any data",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_crobat_api",
+  "name": "Crobat API",
+  "summary": "Search Crobat API for subdomains.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_crossref",
+  "name": "Cross-Referencer",
+  "summary": "Identify whether other domains are associated ('Affiliates') of the target by looking for links back to the target site(s).",
+  "useCases": "[\"Footprint\"]"
+ },
+ {
+  "module": "sfp_crt",
+  "name": "Certificate Transparency",
+  "summary": "Gather hostnames from historical certificates in crt.sh.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_crxcavator",
+  "name": "CRXcavator",
+  "summary": "Search CRXcavator for Chrome extensions.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_customfeed",
+  "name": "Custom Threat Feed",
+  "summary": "Check if a host/domain, netblock, ASN or IP is malicious according to your custom feed.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_cybercrimetracker",
+  "name": "CyberCrime-Tracker.net",
+  "summary": "Check if a host/domain or IP address is malicious according to CyberCrime-Tracker.net.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_debounce",
+  "name": "Debounce",
+  "summary": "Check whether an email is disposable",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_dehashed",
+  "name": "Dehashed",
+  "summary": "Gather breach data from Dehashed API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_digitaloceanspace",
+  "name": "Digital Ocean Space Finder",
+  "summary": "Search for potential Digital Ocean Spaces associated with the target and attempt to list their contents.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_dns_for_family",
+  "name": "DNS for Family",
+  "summary": "Check if a host would be blocked by DNS for Family.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_dnsbrute",
+  "name": "DNS Brute-forcer",
+  "summary": "Attempts to identify hostnames through brute-forcing common names and iterations.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_dnscommonsrv",
+  "name": "DNS Common SRV",
+  "summary": "Attempts to identify hostnames through brute-forcing common DNS SRV records.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_dnsdb",
+  "name": "sfp_dnsdb",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_dnsdumpster",
+  "name": "sfp_dnsdumpster",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_dnsgrep",
+  "name": "DNSGrep",
+  "summary": "Obtain Passive DNS information from Rapid7 Sonar Project using DNSGrep API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_dnsneighbor",
+  "name": "DNS Look-aside",
+  "summary": "Attempt to reverse-resolve the IP addresses next to your target to see if they are related.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_dnsraw",
+  "name": "DNS Raw Records",
+  "summary": "Retrieves raw DNS records such as MX, TXT and others.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_dnsresolve",
+  "name": "DNS Resolver",
+  "summary": "Resolves hosts and IP addresses identified, also extracted from raw content.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_dnszonexfer",
+  "name": "DNS Zone Transfer",
+  "summary": "Attempts to perform a full DNS zone transfer.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_dronebl",
+  "name": "DroneBL",
+  "summary": "Query the DroneBL database for open relays, open proxies, vulnerable servers, etc.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_duckduckgo",
+  "name": "DuckDuckGo",
+  "summary": "Query DuckDuckGo's API for descriptive information about your target.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_email",
+  "name": "E-Mail Address Extractor",
+  "summary": "Identify e-mail addresses in any obtained data.",
+  "useCases": "[\"Passive\", \"Investigate\", \"Footprint\"]"
+ },
+ {
+  "module": "sfp_emailcrawlr",
+  "name": "EmailCrawlr",
+  "summary": "Search EmailCrawlr for email addresses and phone numbers associated with a domain.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_emailformat",
+  "name": "EmailFormat",
+  "summary": "Look up e-mail addresses on email-format.com.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_emailrep",
+  "name": "EmailRep",
+  "summary": "Search EmailRep.io for email address reputation.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_emergingthreats",
+  "name": "Emerging Threats",
+  "summary": "Check if a netblock or IP address is malicious according to EmergingThreats.net.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_errors",
+  "name": "Error String Extractor",
+  "summary": "Identify common error messages in content like SQL errors, etc.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_ethereum",
+  "name": "Ethereum Address Extractor",
+  "summary": "Identify ethereum addresses in scraped webpages.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_etherscan",
+  "name": "Etherscan",
+  "summary": "Queries etherscan.io to find the balance of identified ethereum wallet addresses.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_filemeta",
+  "name": "File Metadata Extractor",
+  "summary": "Extracts meta data from documents and images.",
+  "useCases": "[\"Footprint\"]"
+ },
+ {
+  "module": "sfp_flickr",
+  "name": "Flickr",
+  "summary": "Search Flickr for domains, URLs and emails related to the specified domain.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_focsec",
+  "name": "Focsec",
+  "summary": "Look up IP address information from Focsec.",
+  "useCases": "[\"Passive\", \"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_fortinet",
+  "name": "FortiGuard Antispam",
+  "summary": "Check if an IP address is malicious according to FortiGuard Antispam.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_fraudguard",
+  "name": "Fraudguard",
+  "summary": "Obtain threat information from Fraudguard.io",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_fsecure_riddler",
+  "name": "F-Secure Riddler.io",
+  "summary": "Obtain network information from F-Secure Riddler.io API.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_fullcontact",
+  "name": "FullContact",
+  "summary": "Gather domain and e-mail information from FullContact.com API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_fullhunt",
+  "name": "FullHunt",
+  "summary": "Identify domain attack surface using FullHunt API.",
+  "useCases": "[\"Passive\", \"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_github",
+  "name": "Github",
+  "summary": "Identify associated public code repositories on Github.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_gleif",
+  "name": "GLEIF",
+  "summary": "Look up company information from Global Legal Entity Identifier Foundation (GLEIF).",
+  "useCases": "[\"Passive\", \"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_google_tag_manager",
+  "name": "Google Tag Manager",
+  "summary": "Search Google Tag Manager (GTM) for hosts sharing the same GTM code.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_googlemaps",
+  "name": "Google Maps",
+  "summary": "Identifies potential physical addresses and latitude/longitude coordinates.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_googleobjectstorage",
+  "name": "Google Object Storage Finder",
+  "summary": "Search for potential Google Object Storage buckets associated with the target and attempt to list their contents.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_googlesafebrowsing",
+  "name": "sfp_googlesafebrowsing",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_googlesearch",
+  "name": "Google",
+  "summary": "Obtain information from the Google Custom Search API to identify sub-domains and links.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_gravatar",
+  "name": "Gravatar",
+  "summary": "Retrieve user information from Gravatar API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_grayhatwarfare",
+  "name": "Grayhat Warfare",
+  "summary": "Find bucket names matching the keyword extracted from a domain from Grayhat API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_greensnow",
+  "name": "Greensnow",
+  "summary": "Check if a netblock or IP address is malicious according to greensnow.co.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_grep_app",
+  "name": "grep.app",
+  "summary": "Search grep.app API for links and emails related to the specified domain.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_greynoise",
+  "name": "sfp_greynoise",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_greynoise_community",
+  "name": "sfp_greynoise_community",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_h1nobbdde",
+  "name": "HackerOne (Unofficial)",
+  "summary": "Check external vulnerability scanning/reporting service h1.nobbd.de to see if the target is listed.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_hackertarget",
+  "name": "HackerTarget",
+  "summary": "Search HackerTarget.com for hosts sharing the same IP.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_hashes",
+  "name": "Hash Extractor",
+  "summary": "Identify MD5 and SHA hashes in web content, files and more.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_haveibeenpwned",
+  "name": "HaveIBeenPwned",
+  "summary": "Check HaveIBeenPwned.com for hacked e-mail addresses identified in breaches.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_honeypot",
+  "name": "Project Honey Pot",
+  "summary": "Query the Project Honey Pot database for IP addresses.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_hosting",
+  "name": "Hosting Provider Identifier",
+  "summary": "Find out if any IP addresses identified fall within known 3rd party hosting ranges, e.g. Amazon, Azure, etc.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_hostio",
+  "name": "sfp_hostio",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_hunter",
+  "name": "Hunter.io",
+  "summary": "Check for e-mail addresses and names on hunter.io.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_hybrid_analysis",
+  "name": "Hybrid Analysis",
+  "summary": "Search Hybrid Analysis for domains and URLs related to the target.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_iban",
+  "name": "IBAN Number Extractor",
+  "summary": "Identify International Bank Account Numbers (IBANs) in any data.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_iknowwhatyoudownload",
+  "name": "Iknowwhatyoudownload.com",
+  "summary": "Check iknowwhatyoudownload.com for IP addresses that have been using torrents.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_intelx",
+  "name": "IntelligenceX",
+  "summary": "Obtain information from IntelligenceX about identified IP addresses, domains, e-mail addresses and phone numbers.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_intfiles",
+  "name": "Interesting File Finder",
+  "summary": "Identifies potential files of interest, e.g. office documents, zip files.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_ipapico",
+  "name": "ipapi.co",
+  "summary": "Queries ipapi.co to identify geolocation of IP Addresses using ipapi.co API",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_ipapicom",
+  "name": "ipapi.com",
+  "summary": "Queries ipapi.com to identify geolocation of IP Addresses using ipapi.com API",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_ipinfo",
+  "name": "IPInfo.io",
+  "summary": "Identifies the physical location of IP addresses identified using ipinfo.io.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_ipqualityscore",
+  "name": "sfp_ipqualityscore",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_ipregistry",
+  "name": "sfp_ipregistry",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_ipstack",
+  "name": "ipstack",
+  "summary": "Identifies the physical location of IP addresses identified using ipstack.com.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_isc",
+  "name": "Internet Storm Center",
+  "summary": "Check if an IP address is malicious according to SANS ISC.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_jsonwhoiscom",
+  "name": "JsonWHOIS.com",
+  "summary": "Search JsonWHOIS.com for WHOIS records associated with a domain.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_junkfiles",
+  "name": "Junk File Finder",
+  "summary": "Looks for old/temporary and other similar files.",
+  "useCases": "[\"Footprint\"]"
+ },
+ {
+  "module": "sfp_keybase",
+  "name": "Keybase",
+  "summary": "Obtain additional information about domain names and identified usernames.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_koodous",
+  "name": "Koodous",
+  "summary": "Search Koodous for mobile apps.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_leakix",
+  "name": "LeakIX",
+  "summary": "Search LeakIX for host data leaks, open ports, software and geoip.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_maltiverse",
+  "name": "Maltiverse",
+  "summary": "Obtain information about any malicious activities involving IP addresses",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_malwarepatrol",
+  "name": "MalwarePatrol",
+  "summary": "Searches malwarepatrol.net's database of malicious URLs/IPs.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_metadefender",
+  "name": "MetaDefender",
+  "summary": "Search MetaDefender API for IP address and domain IP reputation.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_mnemonic",
+  "name": "Mnemonic PassiveDNS",
+  "summary": "Obtain Passive DNS information from PassiveDNS.mnemonic.no.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_multiproxy",
+  "name": "multiproxy.org Open Proxies",
+  "summary": "Check if an IP address is an open proxy according to multiproxy.org open proxy list.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_myspace",
+  "name": "MySpace",
+  "summary": "Gather username and location from MySpace.com profiles.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_nameapi",
+  "name": "NameAPI",
+  "summary": "Check whether an email is disposable",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_names",
+  "name": "Human Name Extractor",
+  "summary": "Attempt to identify human names in fetched content.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_networksdb",
+  "name": "NetworksDB",
+  "summary": "Search NetworksDB.io API for IP address and domain information.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_neutrinoapi",
+  "name": "NeutrinoAPI",
+  "summary": "Search NeutrinoAPI for phone location information, IP address information, and host reputation.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_numverify",
+  "name": "numverify",
+  "summary": "Lookup phone number location and carrier information from numverify.com.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_onioncity",
+  "name": "Onion.link",
+  "summary": "Search Tor 'Onion City' search engine for mentions of the target domain using Google Custom Search.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_onionsearchengine",
+  "name": "Onionsearchengine.com",
+  "summary": "Search Tor onionsearchengine.com for mentions of the target domain.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_onyphe",
+  "name": "sfp_onyphe",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_openbugbounty",
+  "name": "Open Bug Bounty",
+  "summary": "Check external vulnerability scanning/reporting service openbugbounty.org to see if the target is listed.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_opencorporates",
+  "name": "OpenCorporates",
+  "summary": "Look up company information from OpenCorporates.",
+  "useCases": "[\"Passive\", \"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_opendns",
+  "name": "OpenDNS",
+  "summary": "Check if a host would be blocked by OpenDNS.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_opennic",
+  "name": "OpenNIC DNS",
+  "summary": "Resolves host names in the OpenNIC alternative DNS system.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_openphish",
+  "name": "OpenPhish",
+  "summary": "Check if a host/domain is malicious according to OpenPhish.com.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_openstreetmap",
+  "name": "OpenStreetMap",
+  "summary": "Retrieves latitude/longitude coordinates for physical addresses from OpenStreetMap API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_pageinfo",
+  "name": "Page Information",
+  "summary": "Obtain information about web pages (do they take passwords, do they contain forms, etc.)",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_pastebin",
+  "name": "PasteBin",
+  "summary": "PasteBin search (via Google Search API) to identify related content.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_pgp",
+  "name": "PGP Key Servers",
+  "summary": "Look up domains and e-mail addresses in PGP public key servers.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_phishstats",
+  "name": "PhishStats",
+  "summary": "Check if a netblock or IP address is malicious according to PhishStats.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_phishtank",
+  "name": "PhishTank",
+  "summary": "Check if a host/domain is malicious according to PhishTank.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_phone",
+  "name": "Phone Number Extractor",
+  "summary": "Identify phone numbers in scraped webpages.",
+  "useCases": "[\"Passive\", \"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_portscan_tcp",
+  "name": "Port Scanner - TCP",
+  "summary": "Scans for commonly open TCP ports on Internet-facing systems.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_projectdiscovery",
+  "name": "sfp_projectdiscovery",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_psbdmp",
+  "name": "Psbdmp",
+  "summary": "Check psbdmp.cc (PasteBin Dump) for potentially hacked e-mails and domains.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_pulsedive",
+  "name": "Pulsedive",
+  "summary": "Obtain information from Pulsedive's API.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_punkspider",
+  "name": "PunkSpider",
+  "summary": "Check the QOMPLX punkspider.io service to see if the target is listed as vulnerable.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_quad9",
+  "name": "Quad9",
+  "summary": "Check if a host would be blocked by Quad9 DNS.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_reversewhois",
+  "name": "sfp_reversewhois",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_ripe",
+  "name": "RIPE",
+  "summary": "Queries the RIPE registry (includes ARIN data) to identify netblocks and other info.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_riskiq",
+  "name": "RiskIQ",
+  "summary": "Obtain information from RiskIQ's (formerly PassiveTotal) Passive DNS and Passive SSL databases.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_robtex",
+  "name": "Robtex",
+  "summary": "Search Robtex.com for hosts sharing the same IP.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_s3bucket",
+  "name": "Amazon S3 Bucket Finder",
+  "summary": "Search for potential Amazon S3 buckets associated with the target and attempt to list their contents.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_searchcode",
+  "name": "searchcode",
+  "summary": "Search searchcode for code repositories mentioning the target domain.",
+  "useCases": "[\"Investigate\", \"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_securitytrails",
+  "name": "SecurityTrails",
+  "summary": "Obtain Passive DNS and other information from SecurityTrails",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_seon",
+  "name": "Seon",
+  "summary": "Queries seon.io to gather intelligence about IP Addresses, email addresses, and phone numbers",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_shodan",
+  "name": "SHODAN",
+  "summary": "Obtain information from SHODAN about identified IP addresses.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_similar",
+  "name": "Similar Domain Finder",
+  "summary": "Search various sources to identify similar looking domain names, for instance squatted domains.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_skymem",
+  "name": "Skymem",
+  "summary": "Look up e-mail addresses on Skymem.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_slideshare",
+  "name": "SlideShare",
+  "summary": "Gather name and location from SlideShare profiles.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_snov",
+  "name": "Snov",
+  "summary": "Gather available email IDs from identified domains",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_social",
+  "name": "Social Network Identifier",
+  "summary": "Identify presence on social media networks such as LinkedIn, Twitter and others.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_sociallinks",
+  "name": "Social Links",
+  "summary": "Queries SocialLinks.io to gather intelligence from social media platforms and dark web.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_socialprofiles",
+  "name": "Social Media Profile Finder",
+  "summary": "Tries to discover the social media profiles for human names identified.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_sorbs",
+  "name": "SORBS",
+  "summary": "Query the SORBS database for open relays, open proxies, vulnerable servers, etc.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_spamcop",
+  "name": "SpamCop",
+  "summary": "Check if a netblock or IP address is in the SpamCop database.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_spamhaus",
+  "name": "Spamhaus Zen",
+  "summary": "Check if a netblock or IP address is in the Spamhaus Zen database.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_spider",
+  "name": "Web Spider",
+  "summary": "Spidering of web-pages to extract content for searching.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_spur",
+  "name": "spur.us",
+  "summary": "Obtain information about any malicious activities involving IP addresses found",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_spyonweb",
+  "name": "SpyOnWeb",
+  "summary": "Search SpyOnWeb for hosts sharing the same IP address, Google Analytics code, or Google Adsense code.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_sslcert",
+  "name": "SSL Certificate Analyzer",
+  "summary": "Gather information about SSL certificates used by the target's HTTPS sites.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_stackoverflow",
+  "name": "StackOverflow",
+  "summary": "Search StackOverflow for any mentions of a target domain. Returns potentially related information.",
+  "useCases": "[\"Passive\"]"
+ },
+ {
+  "module": "sfp_stevenblack_hosts",
+  "name": "Steven Black Hosts",
+  "summary": "Check if a domain is malicious (malware or adware) according to Steven Black Hosts list.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_strangeheaders",
+  "name": "Strange Header Identifier",
+  "summary": "Obtain non-standard HTTP headers returned by web servers.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_subdomain_takeover",
+  "name": "Subdomain Takeover Checker",
+  "summary": "Check if affiliated subdomains are vulnerable to takeover.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_sublist3r",
+  "name": "sfp_sublist3r",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_surbl",
+  "name": "SURBL",
+  "summary": "Check if a netblock, IP address or domain is in the SURBL blacklist.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_talosintel",
+  "name": "Talos Intelligence",
+  "summary": "Check if a netblock or IP address is malicious according to TalosIntelligence.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_template",
+  "name": "Template Module",
+  "summary": "This is an example module to help developers create their own SpiderFoot modules.",
+  "useCases": "[\"Passive\"]"
+ },
+ {
+  "module": "sfp_textmagic",
+  "name": "sfp_textmagic",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_threatcrowd",
+  "name": "ThreatCrowd",
+  "summary": "Obtain information from ThreatCrowd about identified IP addresses, domains and e-mail addresses.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_threatfox",
+  "name": "ThreatFox",
+  "summary": "Check if an IP address is malicious according to ThreatFox.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_threatjammer",
+  "name": "Threat Jammer",
+  "summary": "Check if an IP address is malicious according to ThreatJammer.com",
+  "useCases": "[\"Passive\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_threatminer",
+  "name": "ThreatMiner",
+  "summary": "Obtain information from ThreatMiner's database for passive DNS and threat intelligence.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_tldsearch",
+  "name": "TLD Searcher",
+  "summary": "Search all Internet TLDs for domains with the same name as the target (this can be very slow.)",
+  "useCases": "[\"Footprint\"]"
+ },
+ {
+  "module": "sfp_tool_cmseek",
+  "name": "Tool - CMSeeK",
+  "summary": "Identify what Content Management System (CMS) might be used.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_tool_dnstwist",
+  "name": "Tool - DNSTwist",
+  "summary": "Identify bit-squatting, typo and other similar domains to the target using a local DNSTwist installation.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_tool_nbtscan",
+  "name": "sfp_tool_nbtscan",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_tool_nmap",
+  "name": "Tool - Nmap",
+  "summary": "Identify what Operating System might be used.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_tool_nuclei",
+  "name": "sfp_tool_nuclei",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_tool_onesixtyone",
+  "name": "sfp_tool_onesixtyone",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_tool_retirejs",
+  "name": "sfp_tool_retirejs",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_tool_snallygaster",
+  "name": "sfp_tool_snallygaster",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_tool_testsslsh",
+  "name": "Tool - testssl.sh",
+  "summary": "Identify various TLS/SSL weaknesses, including Heartbleed, CRIME and ROBOT.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_tool_trufflehog",
+  "name": "Tool - TruffleHog",
+  "summary": "Searches through git repositories for high entropy strings and secrets, digging deep into commit history.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_tool_wafw00f",
+  "name": "Tool - WAFW00F",
+  "summary": "Identify what web application firewall (WAF) is in use on the specified website.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_tool_wappalyzer",
+  "name": "sfp_tool_wappalyzer",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_tool_whatweb",
+  "name": "Tool - WhatWeb",
+  "summary": "Identify what software is in use on the specified website.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_torch",
+  "name": "TORCH",
+  "summary": "Search Tor 'TORCH' search engine for mentions of the target domain.",
+  "useCases": "[\"Footprint\", \"Investigate\"]"
+ },
+ {
+  "module": "sfp_torexits",
+  "name": "TOR Exit Nodes",
+  "summary": "Check if an IP adddress or netblock appears on the Tor Metrics exit node list.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_trashpanda",
+  "name": "Trashpanda",
+  "summary": "Queries Trashpanda to gather intelligence about mentions of target in pastesites",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_trumail",
+  "name": "Trumail",
+  "summary": "Check whether an email is disposable",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_twilio",
+  "name": "Twilio",
+  "summary": "Obtain information from Twilio about phone numbers. Ensure you have the Caller Name add-on installed in Twilio.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_twitter",
+  "name": "Twitter",
+  "summary": "Gather name and location from Twitter profiles.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_uceprotect",
+  "name": "UCEPROTECT",
+  "summary": "Check if a netblock or IP address is in the UCEPROTECT database.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_urlscan",
+  "name": "URLScan.io",
+  "summary": "Search URLScan.io cache for domain information.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_venmo",
+  "name": "Venmo",
+  "summary": "Gather user information from Venmo API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_viewdns",
+  "name": "ViewDNS.info",
+  "summary": "Identify co-hosted websites and perform reverse Whois lookups using ViewDNS.info.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_virustotal",
+  "name": "VirusTotal",
+  "summary": "Obtain information from VirusTotal about identified IP addresses.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_voipbl",
+  "name": "VoIP Blacklist (VoIPBL)",
+  "summary": "Check if an IP address or netblock is malicious according to VoIP Blacklist (VoIPBL).",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_vxvault",
+  "name": "VXVault.net",
+  "summary": "Check if a domain or IP address is malicious according to VXVault.net.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_webanalytics",
+  "name": "Web Analytics Extractor",
+  "summary": "Identify web analytics IDs in scraped webpages and DNS TXT records.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_webframework",
+  "name": "Web Framework Identifier",
+  "summary": "Identify the usage of popular web frameworks like jQuery, YUI and others.",
+  "useCases": "[\"Footprint\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_webserver",
+  "name": "Web Server Identifier",
+  "summary": "Obtain web server banners to identify versions of web servers being used.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_whatcms",
+  "name": "WhatCMS",
+  "summary": "Check web technology using WhatCMS.org API.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_whois",
+  "name": "Whois",
+  "summary": "Perform a WHOIS look-up on domain names and owned netblocks.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_whoisology",
+  "name": "Whoisology",
+  "summary": "Reverse Whois lookups using Whoisology.com.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_whoxy",
+  "name": "Whoxy",
+  "summary": "Reverse Whois lookups using Whoxy.com.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_wigle",
+  "name": "WiGLE",
+  "summary": "Query WiGLE to identify nearby WiFi access points.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_wikileaks",
+  "name": "Wikileaks",
+  "summary": "Search Wikileaks for mentions of domain names and e-mail addresses.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_wikipediaedits",
+  "name": "Wikipedia Edits",
+  "summary": "Identify edits to Wikipedia articles made from a given IP address or username.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_xforce",
+  "name": "XForce Exchange",
+  "summary": "Obtain IP reputation and passive DNS information from IBM X-Force Exchange.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_yandexdns",
+  "name": "Yandex DNS",
+  "summary": "Check if a host would be blocked by Yandex DNS.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_zetalytics",
+  "name": "sfp_zetalytics",
+  "summary": "",
+  "useCases": ""
+ },
+ {
+  "module": "sfp_zonefiles",
+  "name": "ZoneFile.io",
+  "summary": "Search ZoneFiles.io Domain query API for domain information.",
+  "useCases": "[\"Footprint\", \"Investigate\", \"Passive\"]"
+ },
+ {
+  "module": "sfp_zoneh",
+  "name": "Zone-H Defacement Check",
+  "summary": "Check if a hostname/domain appears on the zone-h.org 'special defacements' RSS feed.",
+  "useCases": "[\"Investigate\", \"Passive\"]"
+ }
+]

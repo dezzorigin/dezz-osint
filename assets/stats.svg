@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="170" viewBox="0 0 900 170" fill="none">
+  <!-- Container -->
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="12"/>
+  <rect x="1" y="1" width="898" height="168" rx="11" fill="none" stroke="#262626" stroke-width="1"/>
+
+  <!-- Badge Header -->
+  <g transform="translate(30, 24)">
+    <rect x="0" y="0" width="140" height="22" rx="4" fill="#171717" stroke="#3f3f46" stroke-width="1"/>
+    <text x="70" y="15" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10.5" font-weight="700" fill="#ffffff" letter-spacing="1.5">ANGKA TERUJI</text>
+  </g>
+
+  <!-- Stat boxes -->
+  <g transform="translate(30, 62)">
+    <rect x="0" y="0" width="198" height="76" rx="8" fill="#141414" stroke="#262626" stroke-width="1"/>
+    <text x="99" y="34" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#ffffff">3793</text>
+    <text x="99" y="56" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" font-weight="600" fill="#a1a1aa">KATALOG OSINT</text>
+
+    <rect x="210" y="0" width="198" height="76" rx="8" fill="#141414" stroke="#262626" stroke-width="1"/>
+    <text x="309" y="34" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#ffffff">233</text>
+    <text x="309" y="56" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" font-weight="600" fill="#a1a1aa">MODUL SPIDERFOOT</text>
+
+    <rect x="420" y="0" width="198" height="76" rx="8" fill="#141414" stroke="#262626" stroke-width="1"/>
+    <text x="519" y="34" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#ffffff">112</text>
+    <text x="519" y="56" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" font-weight="600" fill="#a1a1aa">SITUS CEK USERNAME</text>
+
+    <rect x="630" y="0" width="198" height="76" rx="8" fill="#171717" stroke="#3f3f46" stroke-width="1"/>
+    <text x="729" y="34" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#ffffff">12</text>
+    <text x="729" y="56" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" font-weight="600" fill="#a1a1aa">MCP TOOLS</text>
+  </g>
+</svg>

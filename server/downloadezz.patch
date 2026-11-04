@@ -1,0 +1,1000 @@
+diff --git a/DESIGN.md b/DESIGN.md
+index c5e284c..2da5e30 100644
+--- a/DESIGN.md
++++ b/DESIGN.md
+@@ -1,11 +1,11 @@
+-# DezDownload Design System (DESIGN.md)
++# Downloadezz Design System (DESIGN.md)
+ 
+-This file defines the design language, components, layout rules, and branding constraints for the **DezDownload** web application, designed by **DezReacher**.
++This file defines the design language, components, layout rules, and branding constraints for the **Downloadezz** web application, designed by **DezReacher**.
+ 
+ ---
+ 
+ ## Brand Philosophy
+-DezDownload is an educational utility. It should feel like a premium, high-end dashboard. The aesthetic is inspired by the spatial layout of `nuraform.com` combined with a dark, high-contrast "Premium Chess" theme.
++Downloadezz is an educational utility. It should feel like a premium, high-end dashboard. The aesthetic is inspired by the spatial layout of `nuraform.com` combined with a dark, high-contrast "Premium Chess" theme.
+ 
+ ---
+ 
+diff --git a/README.md b/README.md
+index 32d3289..3fa0773 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# DezDownload
++# Downloadezz
+ 
+ <p align="center">
+   <b>Enterprise-Grade Universal Media Extraction Architecture</b>
+@@ -16,7 +16,7 @@
+ 
+ ## ⚡ The Vision
+ 
+-DezDownload is an ultra-fast, latency-optimized universal media extraction platform. The project is designed with a core architectural goal: to provide an ad-free, completely unlimited, and lightweight client-side routing layer that allows users to instantly retrieve raw high-quality video, audio, and image assets from any major platform. By implementing connection-pooled serverless edge proxies, DezDownload bypasses browser cross-origin constraints and serves clean streams directly to the local storage interface.
++Downloadezz is an ultra-fast, latency-optimized universal media extraction platform. The project is designed with a core architectural goal: to provide an ad-free, completely unlimited, and lightweight client-side routing layer that allows users to instantly retrieve raw high-quality video, audio, and image assets from any major platform. By implementing connection-pooled serverless edge proxies, Downloadezz bypasses browser cross-origin constraints and serves clean streams directly to the local storage interface.
+ 
+ ---
+ 
+@@ -32,7 +32,7 @@ DezDownload is an ultra-fast, latency-optimized universal media extraction platf
+ 
+ ## 🌐 Supported Networks
+ 
+-DezDownload includes native extraction parsing logic for over 60+ social platforms, video sharing systems, and music networks:
++Downloadezz includes native extraction parsing logic for over 60+ social platforms, video sharing systems, and music networks:
+ 
+ | Media Type | Supported Platforms |
+ |---|---|
+@@ -44,12 +44,12 @@ DezDownload includes native extraction parsing logic for over 60+ social platfor
+ 
+ ## 🛠️ Quick Start (Local Development)
+ 
+-Get a local copy of DezDownload up and running in a few simple steps:
++Get a local copy of Downloadezz up and running in a few simple steps:
+ 
+ ### 1. Clone the Repository
+ ```bash
+-git clone https://github.com/nblauliadka/DezDownload.git
+-cd DezDownload
++git clone https://github.com/dezzorigin/Downloadezz.git
++cd Downloadezz
+ ```
+ 
+ ### 2. Install Dependencies
+@@ -73,4 +73,4 @@ Open [http://localhost:3000](http://localhost:3000) inside your web browser to a
+ 
+ ## ⚖️ Legal Disclaimer
+ 
+-DezDownload is an educational utility tool designed strictly for parsing public resource metadata links. By running or using this repository, you agree to access content only for personal, non-commercial purposes in full compliance with copyright laws and DMCA policies. The creator (**DezReacher**) and contributors assume no legal responsibility or liability for how users access, handle, or utilize the parsed public streams. We do not store, host, or cache any files or user records.
++Downloadezz is an educational utility tool designed strictly for parsing public resource metadata links. By running or using this repository, you agree to access content only for personal, non-commercial purposes in full compliance with copyright laws and DMCA policies. The creator (**DezReacher**) and contributors assume no legal responsibility or liability for how users access, handle, or utilize the parsed public streams. We do not store, host, or cache any files or user records.
+diff --git a/app/api/proxy/route.ts b/app/api/proxy/route.ts
+deleted file mode 100644
+index dfdeab0..0000000
+--- a/app/api/proxy/route.ts
++++ /dev/null
+@@ -1,45 +0,0 @@
+-import { NextResponse } from "next/server";
+-
+-export const dynamic = 'force-dynamic';
+-
+-export async function GET(req: Request) {
+-  try {
+-    const { searchParams } = new URL(req.url);
+-    const url = searchParams.get("url");
+-    const filename = searchParams.get("filename") || "download";
+-
+-    if (!url) {
+-      return NextResponse.json({ Status: false, Error: "URL is required" }, { status: 400 });
+-    }
+-
+-    // Fetch the media resource
+-    const res = await fetch(url);
+-    if (!res.ok) {
+-      throw new Error(`Failed to fetch media: ${res.statusText}`);
+-    }
+-
+-    const headers = new Headers();
+-    // Sanitize filename to avoid header issues
+-    const safeFilename = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
+-    headers.set("Content-Disposition", `attachment; filename="${safeFilename}"`);
+-    
+-    // Copy relevant content headers if they exist in upstream response
+-    const contentType = res.headers.get("content-type");
+-    if (contentType) {
+-      headers.set("Content-Type", contentType);
+-    }
+-    const contentLen = res.headers.get("content-length");
+-    if (contentLen) {
+-      headers.set("Content-Length", contentLen);
+-    }
+-
+-    // Return the readable stream directly to browser
+-    return new Response(res.body, {
+-      status: 200,
+-      headers,
+-    });
+-  } catch (error: any) {
+-    console.error("Proxy Error:", error);
+-    return NextResponse.json({ Status: false, Error: error.message || "Failed to download media file" }, { status: 500 });
+-  }
+-}
+diff --git a/app/components/AdSlot.tsx b/app/components/AdSlot.tsx
+new file mode 100644
+index 0000000..8292c8f
+--- /dev/null
++++ b/app/components/AdSlot.tsx
+@@ -0,0 +1,31 @@
++"use client";
++
++import Script from "next/script";
++
++// Slot iklan placeholder — TIDAK render apa-apa sampai publisher ID diset.
++// Cara aktifkan: set NEXT_PUBLIC_ADSENSE_ID=ca-pub-XXXX di Vercel,
++// lalu isi data-ad-slot dengan ID unit iklan dari dashboard AdSense.
++export default function AdSlot({ slot, label }: { slot: string; label: string }) {
++  const client = process.env.NEXT_PUBLIC_ADSENSE_ID || "";
++  if (!client) {
++    return null;
++  }
++  return (
++    <div className="w-full flex justify-center my-6" aria-label={label}>
++      <Script
++        async
++        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`}
++        crossOrigin="anonymous"
++        strategy="lazyOnload"
++      />
++      <ins
++        className="adsbygoogle"
++        style={{ display: "block", textAlign: "center" }}
++        data-ad-client={client}
++        data-ad-slot={slot}
++        data-ad-format="auto"
++        data-full-width-responsive="true"
++      />
++    </div>
++  );
++}
+diff --git a/app/dmca/page.tsx b/app/dmca/page.tsx
+new file mode 100644
+index 0000000..00e2bfc
+--- /dev/null
++++ b/app/dmca/page.tsx
+@@ -0,0 +1,56 @@
++import Link from "next/link";
++
++export const metadata = {
++  title: "DMCA & Takedown | Downloadezz",
++  description: "Prosedur penghapusan konten berhak cipta di Downloadezz.",
++};
++
++// TODO: ganti dengan email abuse asli sebelum production.
++const ABUSE_EMAIL = "abuse@downloadezz.example";
++
++export default function DmcaPage() {
++  return (
++    <main className="min-h-screen bg-[#080808] text-zinc-300 px-6 py-16">
++      <div className="max-w-3xl mx-auto">
++        <Link href="/" className="text-sm text-zinc-500 hover:text-white">
++          ← Kembali
++        </Link>
++        <h1 className="text-2xl md:text-3xl font-extrabold text-white mt-4 mb-2">
++          DMCA &amp; Permintaan Takedown
++        </h1>
++        <p className="text-sm text-zinc-500 mb-8">
++          Terakhir diperbarui: 2026
++        </p>
++        <div className="space-y-5 text-sm leading-relaxed">
++          <p>
++            Downloadezz tidak meng-host, menyimpan, atau meng-cache file media
++            apa pun. Layanan ini hanya me-resolve tautan unduhan langsung dari
++            platform asal — file mengalir dari server platform ke perangkat Anda.
++          </p>
++          <p>
++            Jika Anda pemilik hak cipta dan meyakini suatu konten tertaut secara
++            tidak sah, kirim pemberitahuan ke{" "}
++            <span className="text-white font-semibold">{ABUSE_EMAIL}</span>{" "}
++            dengan melampirkan:
++          </p>
++          <ol className="list-decimal ml-6 space-y-2">
++            <li>Identitas Anda dan bukti kepemilikan hak cipta.</li>
++            <li>URL persis konten yang dipermasalahkan.</li>
++            <li>URL asal di platform sumber (YouTube, TikTok, dll).</li>
++            <li>Pernyataan itikad baik bahwa penggunaan tersebut tidak sah.</li>
++          </ol>
++          <p>
++            Laporan valid diproses maksimal <strong className="text-white">7 hari kerja</strong>:
++            URL diblokir dari hasil ekstraksi kami. Catatan: pemblokiran di sini
++            tidak menghapus konten dari platform asalnya — untuk itu hubungi
++            langsung platform terkait.
++          </p>
++          <p className="text-zinc-500">
++            Laporan palsu atau penyalahgunaan formulir dapat ditindaklanjuti
++            secara hukum.
++          </p>
++        </div>
++      </div>
++    </main>
++  );
++}
+diff --git a/app/docs/page.tsx b/app/docs/page.tsx
+index d9c67a7..c5e8140 100644
+--- a/app/docs/page.tsx
++++ b/app/docs/page.tsx
+@@ -58,7 +58,7 @@ export default function DocsPage() {
+           <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-white flex items-center justify-center">
+             <Download className="w-3.5 h-3.5 md:w-4 md:h-4 text-black" strokeWidth={3} />
+           </div>
+-          <span className="text-white font-extrabold text-xs md:text-sm tracking-wide">DezDownload</span>
++          <span className="text-white font-extrabold text-xs md:text-sm tracking-wide">Downloadezz</span>
+         </div>
+         
+         {/* Desktop Links (md:flex) */}
+@@ -88,7 +88,7 @@ export default function DocsPage() {
+             Install App
+           </button>
+           <a 
+-            href="https://github.com/nblauliadka/DezDownload" 
++            href="https://github.com/dezzorigin/Downloadezz" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             className="text-zinc-400 hover:text-white transition-colors shrink-0 p-1 hover:bg-white/5 rounded-lg"
+@@ -163,10 +163,10 @@ export default function DocsPage() {
+           </div>
+           
+           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
+-            DezDownload Documentation
++            Downloadezz Documentation
+           </h1>
+           <p className="text-xs md:text-sm text-zinc-500 max-w-2xl leading-relaxed">
+-            The Ultimate Universal Media Extraction & Downloader Engine. Learn about the features, technical stacks, setup instructions, and core architecture of DezDownload.
++            The Ultimate Universal Media Extraction & Downloader Engine. Learn about the features, technical stacks, setup instructions, and core architecture of Downloadezz.
+           </p>
+         </section>
+ 
+@@ -177,7 +177,7 @@ export default function DocsPage() {
+             <h2 className="text-base md:text-lg font-bold text-white tracking-wide">⚡ Introduction</h2>
+           </div>
+           <p className="text-zinc-400 text-xs md:text-sm leading-relaxed">
+-            DezDownload is an elite, high-performance universal media extraction platform. Created by developer <span className="text-white font-semibold">DezReacher</span>, it features a latency-optimized client routing layer and a stream proxy system designed to bypass typical cross-origin browser policies and retrieve high-quality video, audio, and images from any social platform instantly.
++            Downloadezz is an elite, high-performance universal media extraction platform. Created by developer <span className="text-white font-semibold">DezReacher</span>, it features a latency-optimized client routing layer and a stream proxy system designed to bypass typical cross-origin browser policies and retrieve high-quality video, audio, and images from any social platform instantly.
+           </p>
+         </section>
+ 
+@@ -266,12 +266,12 @@ export default function DocsPage() {
+             <h2 className="text-base md:text-lg font-bold text-white tracking-wide">📦 Installation & Setup</h2>
+           </div>
+           <div className="space-y-4 text-xs">
+-            <p className="text-zinc-400">Get DezDownload running locally on your machine in seconds:</p>
++            <p className="text-zinc-400">Get Downloadezz running locally on your machine in seconds:</p>
+             <div className="space-y-2">
+               <span className="text-white font-bold block">1. Clone the Repository</span>
+               <pre className="p-4 rounded-xl bg-zinc-950 border border-white/5 font-mono text-[10px] md:text-xs text-zinc-300 overflow-x-auto">
+-{`git clone https://github.com/nblauliadka/DezDownload.git
+-cd DezDownload`}
++{`git clone https://github.com/dezzorigin/Downloadezz.git
++cd Downloadezz`}
+               </pre>
+             </div>
+             <div className="space-y-2">
+@@ -312,12 +312,12 @@ cd DezDownload`}
+             }}
+           >
+             <p className="text-zinc-400 text-xs md:text-sm leading-relaxed">
+-              DezDownload operates on a distributed stream-pooling architecture designed for ultra-low latency, parallel extraction, and fail-safe redundancy. The system routes all incoming media URLs through a set of specialized decoders that communicate with remote extraction clusters.
++              Downloadezz operates on a distributed stream-pooling architecture designed for ultra-low latency, parallel extraction, and fail-safe redundancy. The system routes all incoming media URLs through a set of specialized decoders that communicate with remote extraction clusters.
+             </p>
+             <div className="space-y-4">
+               <h3 className="text-sm font-bold text-white uppercase tracking-wider">1. High-Performance Stream Proxying</h3>
+               <p className="text-zinc-400 text-xs md:text-sm leading-relaxed">
+-                By bypassing client-side browser restrictions through an optimized routing gateway, DezDownload ensures that cross-origin media files (video/mp4, video/webm, audio/mp3) can be downloaded directly onto local storage without triggering navigation or security blocks.
++                By bypassing client-side browser restrictions through an optimized routing gateway, Downloadezz ensures that cross-origin media files (video/mp4, video/webm, audio/mp3) can be downloaded directly onto local storage without triggering navigation or security blocks.
+               </p>
+             </div>
+             <div className="space-y-4">
+@@ -342,11 +342,11 @@ cd DezDownload`}
+               </div>
+               <h3 className="text-lg font-bold text-white mb-2 tracking-wide">Developer Documentation Paywall</h3>
+               <p className="text-xs text-zinc-400 leading-relaxed mb-6">
+-                ⭐ Star the repository and Follow <span className="text-white font-semibold">@nblauliadka</span> on GitHub to unlock the complete Core Architecture specs and production source code.
++                ⭐ Star the repository and Follow <span className="text-white font-semibold">@dezzorigin</span> on GitHub to unlock the complete Core Architecture specs and production source code.
+               </p>
+               <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                 <a 
+-                  href="https://github.com/nblauliadka/DezDownload" 
++                  href="https://github.com/dezzorigin/Downloadezz" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="bg-white hover:bg-zinc-200 text-black font-bold text-xs px-5 py-3 rounded-full transition-all duration-200 cursor-pointer shadow-lg active:scale-95 flex items-center justify-center gap-1.5"
+@@ -355,12 +355,12 @@ cd DezDownload`}
+                   View Repository
+                 </a>
+                 <a 
+-                  href="https://github.com/nblauliadka" 
++                  href="https://github.com/dezzorigin" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="bg-transparent hover:bg-white/5 border border-white/10 text-white font-semibold text-xs px-5 py-3 rounded-full transition-all duration-200 cursor-pointer active:scale-95 flex items-center justify-center"
+                 >
+-                  Follow @nblauliadka
++                  Follow @dezzorigin
+                 </a>
+               </div>
+             </div>
+@@ -403,30 +403,30 @@ cd DezDownload`}
+               {/* Body Content (Scrollable) */}
+               <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 text-xs text-zinc-400 leading-relaxed">
+                 <div>
+-                  <h4 className="font-bold text-white text-sm mb-2">About DezDownload</h4>
++                  <h4 className="font-bold text-white text-sm mb-2">About Downloadezz</h4>
+                   <p>
+-                    DezDownload is a high-performance web utility built on a fast, modern Next.js client routing architecture. Created by developer DezReacher, it provides structured extraction for public media sources with latency optimization and fail-safe redundancy.
++                    Downloadezz is a high-performance web utility built on a fast, modern Next.js client routing architecture. Created by developer DezReacher, it provides structured extraction for public media sources with latency optimization and fail-safe redundancy.
+                   </p>
+                 </div>
+ 
+                 <div>
+                   <h4 className="font-bold text-white text-sm mb-2">Terms of Service</h4>
+                   <p>
+-                    DezDownload is an educational utility tool designed for extracting publicly available media. By using this service, you agree to access content only for personal, non-commercial use. Users assume full legal responsibility for the media they access and download.
++                    Downloadezz is an educational utility tool designed for extracting publicly available media. By using this service, you agree to access content only for personal, non-commercial use. Users assume full legal responsibility for the media they access and download.
+                   </p>
+                 </div>
+ 
+                 <div>
+                   <h4 className="font-bold text-white text-sm mb-2">Privacy Policy</h4>
+                   <p>
+-                    We value user privacy. DezDownload functions solely as a client-side routing mechanism. We do not store, host, collect, or cache any user-extracted media files or personal data on our servers.
++                    We value user privacy. Downloadezz functions solely as a client-side routing mechanism. We do not store, host, collect, or cache any user-extracted media files or personal data on our servers.
+                   </p>
+                 </div>
+ 
+                 <div>
+                   <h4 className="font-bold text-white text-sm mb-2">DMCA & Copyright Policy</h4>
+                   <p>
+-                    We strictly prohibit the use of this tool for copyright infringement. DezDownload does not host or store copyrighted material on its servers. If you are a copyright owner and wish to restrict extraction from a specific source platform, please contact the originating platform directly.
++                    We strictly prohibit the use of this tool for copyright infringement. Downloadezz does not host or store copyrighted material on its servers. If you are a copyright owner and wish to restrict extraction from a specific source platform, please contact the originating platform directly.
+                   </p>
+                 </div>
+               </div>
+@@ -448,7 +448,7 @@ cd DezDownload`}
+       {/* Footer */}
+       <footer className="w-full border-t border-white/10 py-6 bg-[#080808] px-6 mt-auto">
+         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+-          <p>DezDownload © {new Date().getFullYear()} • Designed by DezReacher</p>
++          <p>Downloadezz © {new Date().getFullYear()} • Designed by DezReacher</p>
+           <a 
+             href="/"
+             className="hover:text-white transition-colors cursor-pointer font-medium flex items-center gap-1"
+@@ -480,7 +480,7 @@ cd DezDownload`}
+               </div>
+               <h3 className="text-lg font-bold text-white mb-2 font-sans tracking-wide">How to Install</h3>
+               <p className="text-xs text-zinc-400 leading-relaxed mb-6">
+-                For the best experience, add DezDownload to your home screen:
++                For the best experience, add Downloadezz to your home screen:
+                 <br /><br />
+                 <span className="text-white font-semibold">Safari (iOS):</span> Tap the <span className="font-bold text-white underline">Share</span> button, scroll down, and select <span className="text-white font-semibold">"Add to Home Screen"</span>.
+                 <br /><br />
+diff --git a/app/layout.tsx b/app/layout.tsx
+index f159775..ed5dda1 100644
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -5,25 +5,25 @@ import './globals.css';
+ const inter = Inter({ subsets: ['latin'] });
+ 
+ export const metadata: Metadata = {
+-  title: 'DezDownload | Free Universal Media Downloader',
++  title: 'Downloadezz | Free Universal Media Downloader',
+   description: 'The ultimate, latency-optimized client routing architecture for extracting high-quality video, audio, and images from any social platform instantly. No ads, no limits.',
+-  keywords: 'media downloader, universal downloader, Next.js downloader, video extractor, DezDownload, DezReacher',
++  keywords: 'media downloader, universal downloader, Next.js downloader, video extractor, Downloadezz, DezReacher',
+   manifest: '/manifest.json',
+   authors: [{ name: 'DezReacher' }],
+   creator: 'DezReacher',
+   appleWebApp: {
+     capable: true,
+     statusBarStyle: "black-translucent",
+-    title: "DezDownload"
++    title: "Downloadezz"
+   },
+   openGraph: {
+-    title: 'DezDownload | Free Universal Media Downloader',
++    title: 'Downloadezz | Free Universal Media Downloader',
+     description: 'The ultimate, latency-optimized client routing architecture for extracting high-quality video, audio, and images from any social platform instantly. No ads, no limits.',
+     type: 'website',
+   },
+   twitter: {
+     card: 'summary_large_image',
+-    title: 'DezDownload | Free Universal Media Downloader',
++    title: 'Downloadezz | Free Universal Media Downloader',
+     description: 'The ultimate, latency-optimized client routing architecture for extracting high-quality video, audio, and images from any social platform instantly. No ads, no limits.',
+   }
+ };
+diff --git a/app/page.tsx b/app/page.tsx
+index 25a2ae3..e00b0c8 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -9,6 +9,7 @@ import {
+ } from "lucide-react";
+ import { motion, AnimatePresence } from "motion/react";
+ import { forceDownload } from "@/lib/utils";
++import AdSlot from "./components/AdSlot";
+ 
+ const platforms = [
+   { name: "TikTok", icon: Video },
+@@ -123,7 +124,7 @@ export default function Home() {
+   const [toastType, setToastType] = useState<"success" | "info" | "error" | "warning">("success");
+ 
+   // ── MAINTENANCE MODE ──────────────────────────────────────────────
+-  const MAINTENANCE_MODE = true;
++  const MAINTENANCE_MODE = false;
+   const [showMaintenanceModal, setShowMaintenanceModal] = useState(false);
+   const maintenanceToastFired = useRef(false);
+   // ─────────────────────────────────────────────────────────────────
+@@ -421,7 +422,7 @@ export default function Home() {
+           <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-white flex items-center justify-center">
+             <Download className="w-3.5 h-3.5 md:w-4 md:h-4 text-black" strokeWidth={3} />
+           </div>
+-          <span className="text-white font-extrabold text-xs md:text-sm tracking-wide">DezDownload</span>
++          <span className="text-white font-extrabold text-xs md:text-sm tracking-wide">Downloadezz</span>
+         </div>
+         
+         {/* Desktop Links (md:flex) */}
+@@ -456,7 +457,7 @@ export default function Home() {
+             Install App
+           </button>
+           <a 
+-            href="https://github.com/nblauliadka/DezDownload" 
++            href="https://github.com/dezzorigin/Downloadezz" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             className="text-zinc-400 hover:text-white transition-colors shrink-0 p-1 hover:bg-white/5 rounded-lg"
+@@ -543,7 +544,7 @@ export default function Home() {
+             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+             className="w-full px-4 md:px-6 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent break-words"
+           >
+-            DezDownload
++            Downloadezz
+           </motion.h1>
+           
+           <motion.p 
+@@ -575,7 +576,7 @@ export default function Home() {
+                   <span className="text-amber-200 font-bold">⚠️ Extraction servers are currently down for maintenance.</span>{" "}
+                   While waiting, check out other cool stuff on{" "}
+                   <a
+-                    href="https://github.com/nblauliadka"
++                    href="https://github.com/dezzorigin"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="text-amber-200 underline underline-offset-2 hover:text-white transition-colors font-bold"
+@@ -596,7 +597,7 @@ export default function Home() {
+               <input 
+                 type="url" 
+                 placeholder={MAINTENANCE_MODE ? "Maintenance in progress..." : "Paste URL here..."}
+-                className="flex-1 w-full max-w-[90vw] bg-transparent border-0 outline-none text-white text-base py-2 md:py-4 pl-1 md:pl-2 placeholder:text-zinc-600 focus:ring-0 focus:outline-none min-w-0 cursor-not-allowed select-none"
++                className="flex-1 w-full max-w-[90vw] bg-transparent border-0 outline-none text-white text-base py-2 md:py-4 pl-1 md:pl-2 placeholder:text-zinc-600 focus:ring-0 focus:outline-none min-w-0"
+                 value={url}
+                 readOnly={MAINTENANCE_MODE}
+                 onChange={MAINTENANCE_MODE ? undefined : (e) => setUrl(e.target.value)}
+@@ -672,6 +673,9 @@ export default function Home() {
+           {/* Space divider */}
+           <div className="w-full mt-10" />
+ 
++          {/* Iklan: aktif hanya bila NEXT_PUBLIC_ADSENSE_ID diset */}
++          <AdSlot slot="TODO_AD_SLOT_HERO" label="ad-hero" />
++
+         </section>
+ 
+         {/* Results Section */}
+@@ -960,16 +964,24 @@ export default function Home() {
+ 
+       </main>
+ 
++      {/* Iklan bawah: aktif hanya bila NEXT_PUBLIC_ADSENSE_ID diset */}
++      <AdSlot slot="TODO_AD_SLOT_BOTTOM" label="ad-bottom" />
++
+       {/* Footer (Minimalist Copyright + Trigger) */}
+       <footer className="w-full border-t border-white/10 py-6 bg-[#080808] px-6 mt-auto">
+         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+-          <p>DezDownload © {new Date().getFullYear()} • Designed by DezReacher</p>
+-          <button 
+-            onClick={() => setIsDrawerOpen(true)}
+-            className="hover:text-white transition-colors cursor-pointer font-medium"
+-          >
+-            Legal & Terms
+-          </button>
++          <p>Downloadezz © {new Date().getFullYear()} • Designed by DezReacher</p>
++          <div className="flex items-center gap-4">
++            <a href="/dmca" className="hover:text-white transition-colors font-medium">
++              DMCA
++            </a>
++            <button 
++              onClick={() => setIsDrawerOpen(true)}
++              className="hover:text-white transition-colors cursor-pointer font-medium"
++            >
++              Legal & Terms
++            </button>
++          </div>
+         </div>
+       </footer>
+ 
+@@ -1007,30 +1019,30 @@ export default function Home() {
+               {/* Body Content (Scrollable) */}
+               <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 text-xs text-zinc-400 leading-relaxed">
+                 <div>
+-                  <h4 className="font-bold text-white text-sm mb-2">About DezDownload</h4>
++                  <h4 className="font-bold text-white text-sm mb-2">About Downloadezz</h4>
+                   <p>
+-                    DezDownload is a high-performance web utility built on a fast, modern Next.js client routing architecture. Created by developer DezReacher, it provides structured extraction for public media sources with latency optimization and fail-safe redundancy.
++                    Downloadezz is a high-performance web utility built on a fast, modern Next.js client routing architecture. Created by developer DezReacher, it provides structured extraction for public media sources with latency optimization and fail-safe redundancy.
+                   </p>
+                 </div>
+ 
+                 <div>
+                   <h4 className="font-bold text-white text-sm mb-2">Terms of Service</h4>
+                   <p>
+-                    DezDownload is an educational utility tool designed for extracting publicly available media. By using this service, you agree to access content only for personal, non-commercial use. Users assume full legal responsibility for the media they access and download.
++                    Downloadezz is an educational utility tool designed for extracting publicly available media. By using this service, you agree to access content only for personal, non-commercial use. Users assume full legal responsibility for the media they access and download.
+                   </p>
+                 </div>
+ 
+                 <div>
+                   <h4 className="font-bold text-white text-sm mb-2">Privacy Policy</h4>
+                   <p>
+-                    We value user privacy. DezDownload functions solely as a client-side routing mechanism. We do not store, host, collect, or cache any user-extracted media files or personal data on our servers.
++                    We value user privacy. Downloadezz functions solely as a client-side routing mechanism. We do not store, host, collect, or cache any user-extracted media files or personal data on our servers.
+                   </p>
+                 </div>
+ 
+                 <div>
+                   <h4 className="font-bold text-white text-sm mb-2">DMCA & Copyright Policy</h4>
+                   <p>
+-                    We strictly prohibit the use of this tool for copyright infringement. DezDownload does not host or store copyrighted material on its servers. If you are a copyright owner and wish to restrict extraction from a specific source platform, please contact the originating platform directly.
++                    We strictly prohibit the use of this tool for copyright infringement. Downloadezz does not host or store copyrighted material on its servers. If you are a copyright owner and wish to restrict extraction from a specific source platform, please contact the originating platform directly.
+                   </p>
+                 </div>
+               </div>
+@@ -1143,7 +1155,7 @@ export default function Home() {
+                 <Download className="w-5 h-5 text-black" />
+               </div>
+               <div className="flex-1">
+-                <h4 className="text-sm font-bold">Install DezDownload</h4>
++                <h4 className="text-sm font-bold">Install Downloadezz</h4>
+                 <p className="text-xs text-zinc-400 mt-1">Add to Home Screen for instant access.</p>
+                 <div className="flex items-center gap-3 mt-4">
+                   <button 
+@@ -1187,7 +1199,7 @@ export default function Home() {
+               </div>
+               <h3 className="text-lg font-bold text-white mb-2 font-sans tracking-wide">How to Install</h3>
+               <p className="text-xs text-zinc-400 leading-relaxed mb-6">
+-                For the best experience, add DezDownload to your home screen:
++                For the best experience, add Downloadezz to your home screen:
+                 <br /><br />
+                 <span className="text-white font-semibold">Safari (iOS):</span> Tap the <span className="font-bold text-white underline">Share</span> button, scroll down, and select <span className="text-white font-semibold">"Add to Home Screen"</span>.
+                 <br /><br />
+@@ -1325,7 +1337,7 @@ export default function Home() {
+                   {/* CTA Buttons */}
+                   <div className="flex flex-col sm:flex-row gap-2">
+                     <a
+-                      href="https://github.com/nblauliadka"
++                      href="https://github.com/dezzorigin"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="flex-1 flex items-center justify-center gap-1.5 bg-white hover:bg-zinc-100 text-black font-semibold text-[13px] py-2.5 px-4 rounded-lg transition-colors duration-150 active:scale-[0.98] cursor-pointer"
+diff --git a/lib/downr.ts b/lib/downr.ts
+index 6aef9f0..ef8d159 100644
+--- a/lib/downr.ts
++++ b/lib/downr.ts
+@@ -1,28 +1,13 @@
+ import axios from "axios";
+ 
+-// Cobalt v10 API — endpoint is POST / at the base URL (not /api/json which was the old v7 path)
++// dezz-extract — backend ekstraksi milik sendiri (yt-dlp, ala Mori).
++// Nol ketergantungan ke API pihak ketiga (Cobalt publik mati: wajib JWT).
++//
+ // Configure via .env.local:
+-//   COBALT_API_URL  — base URL of your Cobalt instance (defaults to api.cobalt.tools)
+-//   COBALT_API_KEY  — optional Api-Key if your instance requires key auth
+-const COBALT_BASE_URL = (process.env.COBALT_API_URL || "https://api.cobalt.tools").replace(/\/+$/, "");
+-const COBALT_API = `${COBALT_BASE_URL}/`;
+-const COBALT_API_KEY = process.env.COBALT_API_KEY || "";
+-
+-// [DIAG] Log resolved env vars on module load so misconfigurations are immediately visible
+-console.log("[downr] COBALT_BASE_URL resolved to:", JSON.stringify(COBALT_BASE_URL));
+-console.log("[downr] COBALT_API endpoint:", JSON.stringify(COBALT_API));
+-console.log("[downr] COBALT_API_KEY present:", COBALT_API_KEY ? `yes (${COBALT_API_KEY.length} chars)` : "no");
+-
+-function buildCobaltHeaders(): Record<string, string> {
+-  const headers: Record<string, string> = {
+-    Accept: "application/json",
+-    "Content-Type": "application/json"
+-  };
+-  if (COBALT_API_KEY) {
+-    headers["Authorization"] = `Api-Key ${COBALT_API_KEY}`;
+-  }
+-  return headers;
+-}
++//   EXTRACT_API_URL — base URL dezz-extract, mis. https://extract.onrender.com
++//                     (default localhost buat dev: panggil /api/download di bawahnya)
++const EXTRACT_BASE_URL = (process.env.EXTRACT_API_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");
++const EXTRACT_API = `${EXTRACT_BASE_URL}/api/download`;
+ 
+ // In-memory caching for redundant URL requests
+ interface CacheEntry {
+@@ -47,11 +32,11 @@ function sanitizeUrl(inputUrl: string): string {
+     const trimmed = inputUrl.trim();
+     const parsed = new URL(trimmed);
+     const params = new URLSearchParams(parsed.search);
+-    
++
+     // Specifically strip out 'list' and 'si'
+     params.delete("list");
+     params.delete("si");
+-    
++
+     // Strip out any trailing empty parameters
+     const keysToDelete: string[] = [];
+     params.forEach((value, key) => {
+@@ -60,7 +45,7 @@ function sanitizeUrl(inputUrl: string): string {
+       }
+     });
+     keysToDelete.forEach(key => params.delete(key));
+-    
++
+     const searchString = params.toString();
+     parsed.search = searchString ? `?${searchString}` : "";
+     return parsed.toString();
+@@ -69,96 +54,27 @@ function sanitizeUrl(inputUrl: string): string {
+   }
+ }
+ 
+-export function isCobaltOk(status: number, data: any) {
++export function isExtractOk(status: number, data: any) {
+   if (status < 200 || status >= 300) return false;
+   if (!data || typeof data !== "object") return false;
+-  if (data.status === "error") return false;
+-  return data.status === "tunnel" || data.status === "redirect" || data.status === "picker";
++  return data.Status === true && Array.isArray(data?.Result?.medias) && data.Result.medias.length > 0;
+ }
+ 
+ export function getError(data: any, status: number) {
+-  let code = "";
+-  if (data && typeof data === "object") {
+-    if (data.status === "error" && data.error && typeof data.error === "object") {
+-      code = data.error.code || "";
+-    } else if (typeof data.error === "string") {
+-      code = data.error;
+-    }
+-  }
+-
+-  if (code) {
+-    const cleanCode = code.toLowerCase();
+-
+-    // Auth errors — all public Cobalt instances now require JWT or API key
+-    if (cleanCode.includes("auth.jwt") || cleanCode.includes("auth.apikey") || cleanCode.includes("jwt.missing")) {
+-      return "⚠️ Instance Cobalt ini memerlukan otentikasi (JWT/API Key). " +
+-        "Silakan tambahkan COBALT_API_KEY di .env.local atau ganti COBALT_API_URL ke instance yang tidak memerlukan auth.";
+-    }
+-    if (cleanCode.includes("auth")) {
+-      return "⚠️ Akses ditolak. Layanan memerlukan otentikasi atau kunci API yang valid.";
+-    }
+-
+-    if (cleanCode.includes("empty") || cleanCode.includes("invalid") || cleanCode.includes("url")) {
+-      return "⚠️ Konten tidak ditemukan atau link tidak valid. Pastikan URL yang dimasukkan benar.";
+-    }
+-    if (cleanCode.includes("rate") || status === 429) {
+-      return "⚠️ Terlalu banyak permintaan (Limit Terlampaui). Mohon tunggu beberapa saat sebelum mencoba lagi.";
+-    }
+-    if (cleanCode.includes("youtube")) {
+-      return "⚠️ Gagal mengekstrak video YouTube. Server mendeteksi pembatasan akses.";
+-    }
+-    if (cleanCode.includes("content.too_long") || cleanCode.includes("link.short")) {
+-      return "⚠️ Link media tidak didukung atau terlalu panjang. Coba gunakan link langsung ke video.";
+-    }
+-    if (cleanCode.includes("service")) {
+-      return "⚠️ Platform ini belum didukung atau sedang mengalami gangguan. Coba platform lain.";
+-    }
+-    if (cleanCode.includes("fetch") || cleanCode.includes("fail") || cleanCode.includes("critical")) {
+-      return "⚠️ Server gagal mengunduh media dari link tersebut. Silakan coba lagi nanti.";
+-    }
+-  }
+-
+-  if (status === 401) {
+-    return "⚠️ Instance Cobalt ini memerlukan otentikasi. " +
+-      "Tambahkan COBALT_API_KEY di .env.local atau arahkan COBALT_API_URL ke instance tanpa auth.";
++  let msg = "";
++  if (data && typeof data === "object" && typeof data.Error === "string") {
++    msg = data.Error;
+   }
+-  if (status === 403) {
+-    return "⚠️ URL tidak valid atau ditolak server. Pastikan link video bersih dari parameter tambahan (seperti playlist).";
++  if (/tidak ada stream|tak didukung|tidak valid/i.test(msg)) {
++    return "⚠️ Link media tidak didukung atau tidak valid. Coba gunakan link langsung ke video.";
+   }
+   if (status === 429) {
+-    return "⚠️ Terlalu banyak permintaan. Mohon tunggu sebentar, lalu coba lagi.";
++    return "⚠️ Terlalu banyak permintaan (Limit Terlampaui). Mohon tunggu beberapa saat sebelum mencoba lagi.";
+   }
+-
+-  return "⚠️ Gagal mengekstrak media. Silakan periksa kembali URL Anda dan coba lagi.";
+-}
+-
+-function getExtension(filename: string): string {
+-  if (!filename) return "";
+-  const parts = filename.split(".");
+-  return parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
+-}
+-
+-function getTitle(filename: string): string {
+-  if (!filename) return "Extracted Media";
+-  const parts = filename.split(".");
+-  if (parts.length > 1) {
+-    parts.pop();
++  if (status >= 500) {
++    return "⚠️ Server ekstraksi sibuk/gagal. Silakan coba lagi nanti.";
+   }
+-  return parts.join(".");
+-}
+-
+-function getQualityFromFilename(filename: string): string {
+-  const lower = filename.toLowerCase();
+-  if (lower.includes("8k") || lower.includes("4320p")) return "4320p (8K)";
+-  if (lower.includes("4k") || lower.includes("2160p")) return "2160p (4K)";
+-  if (lower.includes("2k") || lower.includes("1440p")) return "1440p (2K)";
+-  if (lower.includes("1080p") || lower.includes("1080")) return "1080p (FHD)";
+-  if (lower.includes("720p") || lower.includes("720")) return "720p (HD)";
+-  if (lower.includes("480p") || lower.includes("480")) return "480p";
+-  if (lower.includes("360p") || lower.includes("360")) return "360p";
+-  if (lower.includes("240p") || lower.includes("240")) return "240p";
+-  if (lower.includes("144p") || lower.includes("144")) return "144p";
+-  return "1080p (FHD)";
++  return msg || "⚠️ Gagal mengekstrak media. Silakan periksa kembali URL Anda dan coba lagi.";
+ }
+ 
+ // Global promise maps so we don't fetch the exact same URL concurrently
+@@ -189,179 +105,30 @@ export async function downr(url: string) {
+     }
+ 
+     const requestPromise = (async () => {
+-      const cobaltHeaders = buildCobaltHeaders();
+-
+-      // [DIAG] Log exact request being sent to Cobalt before the fetch
+-      console.log("[downr] >>> POST", COBALT_API);
+-      console.log("[downr] >>> Headers:", JSON.stringify(cobaltHeaders));
+-      console.log("[downr] >>> Body (video):", JSON.stringify({ url: sanitizedUrl, videoQuality: "max", downloadMode: "auto" }));
+-
+-      // Call Cobalt in parallel for video (auto mode = best video+audio merged) and audio-only
+-      const videoPromise = axios.post(
+-        COBALT_API,
+-        {
+-          url: sanitizedUrl,
+-          videoQuality: "max",
+-          downloadMode: "auto"
+-        },
+-        {
+-          headers: cobaltHeaders,
+-          timeout: 30000,
+-          validateStatus: () => true
+-        }
+-      );
+-
+-      const audioPromise = axios.post(
+-        COBALT_API,
++      const res = await axios.post(
++        EXTRACT_API,
++        { url: sanitizedUrl },
+         {
+-          url: sanitizedUrl,
+-          downloadMode: "audio"
+-        },
+-        {
+-          headers: cobaltHeaders,
+-          timeout: 30000,
+-          validateStatus: () => true
++          headers: { Accept: "application/json", "Content-Type": "application/json" },
++          timeout: 90000,
++          validateStatus: () => true,
+         }
+       );
+ 
+-      const [videoResult, audioResult] = await Promise.allSettled([videoPromise, audioPromise]);
+-
+-      // [DIAG] Log raw Cobalt responses
+-      if (videoResult.status === "fulfilled") {
+-        console.log("[downr] <<< Video HTTP Status:", videoResult.value.status);
+-        console.log("[downr] <<< Video Raw Response:", JSON.stringify(videoResult.value.data));
+-      } else {
+-        console.error("[downr] <<< Video Request REJECTED:", videoResult.reason?.message, videoResult.reason?.code, videoResult.reason?.config?.url);
+-      }
+-      if (audioResult.status === "fulfilled") {
+-        console.log("[downr] <<< Audio HTTP Status:", audioResult.value.status);
+-        console.log("[downr] <<< Audio Raw Response:", JSON.stringify(audioResult.value.data));
+-      } else {
+-        console.error("[downr] <<< Audio Request REJECTED:", audioResult.reason?.message, audioResult.reason?.code, audioResult.reason?.config?.url);
+-      }
+-
+-      const medias: any[] = [];
+-      let title = "Extracted Media";
+-      let thumbnail: string | null = null;
+-
+-      if (videoResult.status === "fulfilled" && videoResult.value) {
+-        const { status, data } = videoResult.value;
+-        if (isCobaltOk(status, data)) {
+-          if (data.status === "picker") {
+-            if (Array.isArray(data.picker)) {
+-              data.picker.forEach((item: any, index: number) => {
+-                const ext = item.type === "photo" ? "jpg" : (item.type === "gif" ? "gif" : "mp4");
+-                medias.push({
+-                  url: item.url,
+-                  type: item.type || "photo",
+-                  ext: ext,
+-                  quality: "original",
+-                  label: `${item.type || "photo"} #${index + 1}`,
+-                  hasAudio: item.type === "video",
+-                  audio: item.type === "video"
+-                });
+-                if (!thumbnail && item.thumb) {
+-                  thumbnail = item.thumb;
+-                }
+-              });
+-            }
+-          } else {
+-            const filename = data.filename || "";
+-            const ext = getExtension(filename) || "mp4";
+-            title = getTitle(filename);
+-            medias.push({
+-              url: data.url,
+-              type: "video",
+-              ext: ext,
+-              quality: getQualityFromFilename(filename),
+-              label: getQualityFromFilename(filename),
+-              hasAudio: true,
+-              audio: true
+-            });
+-          }
+-        }
++      const { status, data } = res;
++      if (isExtractOk(status, data)) {
++        const out = { ...data, Endpoint: EXTRACT_API };
++        cache.set(sanitizedUrl, { data: out, expiresAt: Date.now() + CACHE_TTL_MS });
++        return out;
+       }
+-
+-      if (audioResult.status === "fulfilled" && audioResult.value) {
+-        const { status, data } = audioResult.value;
+-        if (isCobaltOk(status, data)) {
+-          if (data.status === "tunnel" || data.status === "redirect") {
+-            const filename = data.filename || "";
+-            const ext = getExtension(filename) || "mp3";
+-            if (title === "Extracted Media" && filename) {
+-              title = getTitle(filename);
+-            }
+-            medias.push({
+-              url: data.url,
+-              type: "audio",
+-              ext: ext,
+-              quality: "320kbps",
+-              label: "Best Audio",
+-              hasAudio: true,
+-              audio: true
+-            });
+-          }
+-        }
+-      }
+-
+-      const ok = medias.length > 0;
+-
+-      if (!ok) {
+-        let errorData: any = null;
+-        let errorCode = 500;
+-
+-        if (videoResult.status === "fulfilled") {
+-          errorData = videoResult.value.data;
+-          errorCode = videoResult.value.status;
+-        } else if (videoResult.status === "rejected") {
+-          const error = (videoResult as PromiseRejectedResult).reason;
+-          errorData = error?.response?.data || error;
+-          errorCode = error?.response?.status || 500;
+-        }
+-
+-        if (!errorData && audioResult.status === "fulfilled") {
+-          errorData = audioResult.value.data;
+-          errorCode = audioResult.value.status;
+-        } else if (!errorData && audioResult.status === "rejected") {
+-          const error = (audioResult as PromiseRejectedResult).reason;
+-          errorData = error?.response?.data || error;
+-          errorCode = error?.response?.status || 500;
+-        }
+-
+-        const errorMsg = getError(errorData, errorCode);
+-        return {
+-          Status: false,
+-          Code: errorCode,
+-          Input: sanitizedUrl,
+-          Endpoint: COBALT_API,
+-          Result: null,
+-          Error: errorMsg
+-        };
+-      }
+-
+-      const finalOutput = {
+-        Status: true,
+-        Code: 200,
++      return {
++        Status: false,
++        Code: status,
+         Input: sanitizedUrl,
+-        Endpoint: COBALT_API,
+-        Result: {
+-          title,
+-          thumbnail,
+-          author: null,
+-          source: "Cobalt",
+-          duration: null,
+-          medias
+-        },
+-        Error: null
++        Endpoint: EXTRACT_API,
++        Result: null,
++        Error: getError(data, status),
+       };
+-
+-      // Save to cache on success
+-      cache.set(sanitizedUrl, {
+-        data: finalOutput,
+-        expiresAt: Date.now() + CACHE_TTL_MS
+-      });
+-
+-      return finalOutput;
+     })();
+ 
+     pendingRequests.set(sanitizedUrl, requestPromise);
+@@ -369,19 +136,15 @@ export async function downr(url: string) {
+     pendingRequests.delete(sanitizedUrl);
+     return data;
+   } catch (err: any) {
+-    // [DIAG] Surface the raw error — do NOT swallow this
+-    console.error("[downr] CAUGHT OUTER ERROR:", err?.message);
+-    console.error("[downr] Error code:", err?.code);
+-    console.error("[downr] Error config URL:", err?.config?.url);
+-    console.error("[downr] Full error:", err);
++    console.error("[downr] ERROR:", err?.message, err?.code);
+     pendingRequests.delete(url);
+     return {
+       Status: false,
+       Code: err.response?.status || 500,
+       Input: url || null,
+-      Endpoint: COBALT_API,
++      Endpoint: EXTRACT_API,
+       Result: null,
+-      Error: err.message || "Unknown error"
++      Error: "⚠️ Server ekstraksi tidak terjangkau. Coba lagi nanti.",
+     };
+   }
+ }
+diff --git a/lib/utils.ts b/lib/utils.ts
+index 6d89fcf..b05fb06 100644
+--- a/lib/utils.ts
++++ b/lib/utils.ts
+@@ -17,7 +17,7 @@ export function forceDownload(url: string, filename: string) {
+   link.rel = "noopener noreferrer";
+   
+   // Set the download attribute to a default filename
+-  link.download = filename || "dezdownload-media";
++  link.download = filename || "downloadezz-media";
+   
+   // Hide the element
+   link.style.display = 'none';
+diff --git a/public/manifest.json b/public/manifest.json
+index 3b63ff1..fdc3477 100644
+--- a/public/manifest.json
++++ b/public/manifest.json
+@@ -1,6 +1,6 @@
+ {
+-  "name": "DezDownload",
+-  "short_name": "DezDownload",
++  "name": "Downloadezz",
++  "short_name": "Downloadezz",
+   "theme_color": "#050505",
+   "background_color": "#050505",
+   "display": "standalone",

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="160" viewBox="0 0 900 160" fill="none">
+  <!-- Container -->
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="12"/>
+  <rect x="1" y="1" width="898" height="158" rx="11" fill="none" stroke="#262626" stroke-width="1"/>
+
+  <!-- Main Title -->
+  <text x="450" y="75" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="800" fill="#ffffff" letter-spacing="-0.5">Stay curious. Stay legal.</text>
+
+  <!-- Subtitle Tagline -->
+  <text x="450" y="110" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400" fill="#a1a1aa" letter-spacing="0.2">dezz-osint &#183; MIT License &#183; Passive recon, authorized use only.</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="40" viewBox="0 0 950 40" fill="none">
+  <style>
+    .ticker-text {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      font-weight: 700;
+      fill: #ffffff;
+      letter-spacing: 1.5px;
+    }
+  </style>
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="8"/>
+  <rect x="1" y="1" width="948" height="38" rx="7" fill="none" stroke="#262626" stroke-width="1"/>
+  <g>
+    <text x="0" y="25" class="ticker-text" textLength="950">PHONE &#183; USERNAME &#183; EMAIL &#183; IP &#183; DOMAIN &#183; URL &#183; GITHUB &#183; EXIF &#183; DOSSIER &#183; MCP SERVER &#183; </text>
+    <text x="950" y="25" class="ticker-text" textLength="950">PHONE &#183; USERNAME &#183; EMAIL &#183; IP &#183; DOMAIN &#183; URL &#183; GITHUB &#183; EXIF &#183; DOSSIER &#183; MCP SERVER &#183; </text>
+    <animateTransform
+      attributeName="transform"
+      type="translate"
+      from="0 0"
+      to="-950 0"
+      dur="18s"
+      repeatCount="indefinite" />
+  </g>
+</svg>

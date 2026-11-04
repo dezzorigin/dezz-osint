@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dezz-osint": {
+      "command": "python",
+      "args": ["-m", "dezz.mcp.server"],
+      "cwd": "/abs/path/to/dezz-osint",
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="210" viewBox="0 0 900 210" fill="none">
+  <!-- Container -->
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="12"/>
+  <rect x="1" y="1" width="898" height="208" rx="11" fill="none" stroke="#262626" stroke-width="1"/>
+
+  <!-- Badge Header -->
+  <g transform="translate(30, 24)">
+    <rect x="0" y="0" width="130" height="22" rx="4" fill="#171717" stroke="#3f3f46" stroke-width="1"/>
+    <text x="65" y="15" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10.5" font-weight="700" fill="#ffffff" letter-spacing="1.5">15 PERINTAH</text>
+  </g>
+
+  <!-- Row 1 -->
+  <g transform="translate(30, 64)" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" font-weight="700" fill="#e4e4e7">
+    <rect x="0" y="0" width="150" height="28" rx="4" fill="#ffffff" stroke="#ffffff" stroke-width="1"/><text x="75" y="19" text-anchor="middle" fill="#000000">run</text>
+    <rect x="162" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="237" y="19" text-anchor="middle">phone</text>
+    <rect x="324" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="399" y="19" text-anchor="middle">username</text>
+    <rect x="486" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="561" y="19" text-anchor="middle">email</text>
+    <rect x="648" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="723" y="19" text-anchor="middle">ip</text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(30, 102)" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" font-weight="700" fill="#e4e4e7">
+    <rect x="0" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="75" y="19" text-anchor="middle">domain</text>
+    <rect x="162" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="237" y="19" text-anchor="middle">url</text>
+    <rect x="324" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="399" y="19" text-anchor="middle">crawl</text>
+    <rect x="486" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="561" y="19" text-anchor="middle">exif</text>
+    <rect x="648" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="723" y="19" text-anchor="middle">github</text>
+  </g>
+
+  <!-- Row 3 -->
+  <g transform="translate(30, 140)" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" font-weight="700" fill="#e4e4e7">
+    <rect x="0" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="75" y="19" text-anchor="middle">tor</text>
+    <rect x="162" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#3f3f46" stroke-width="1"/><text x="237" y="19" text-anchor="middle">dossier</text>
+    <rect x="324" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="399" y="19" text-anchor="middle">resources</text>
+    <rect x="486" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="561" y="19" text-anchor="middle">sf</text>
+    <rect x="648" y="0" width="150" height="28" rx="4" fill="#171717" stroke="#27272a" stroke-width="1"/><text x="723" y="19" text-anchor="middle">mcp</text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="160" viewBox="0 0 900 160" fill="none">
+  <!-- Container -->
+  <rect width="100%" height="100%" fill="#0a0a0a" rx="12"/>
+  <rect x="1" y="1" width="898" height="158" rx="11" fill="none" stroke="#52525b" stroke-width="1"/>
+
+  <!-- Badge Header -->
+  <g transform="translate(30, 24)">
+    <rect x="0" y="0" width="120" height="22" rx="4" fill="#27272a" stroke="#71717a" stroke-width="1"/>
+    <text x="60" y="15" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="10.5" font-weight="700" fill="#ffffff" letter-spacing="1.5">BATAS PAKAI</text>
+  </g>
+
+  <!-- Content -->
+  <text x="30" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#ffffff">
+    Hanya untuk data milikmu sendiri atau atas izin tertulis.
+  </text>
+  <text x="30" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400" fill="#a1a1aa">
+    Tanpa bruteforce, tanpa spam, tanpa mengganggu orang. Yang butuh syarat akan bilang butuh apa.
+  </text>
+  <text x="30" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400" fill="#a1a1aa">
+    Dezz menolak memalsukan hasil — tidak ada centang hijau dari engine yang mati.
+  </text>
+</svg>

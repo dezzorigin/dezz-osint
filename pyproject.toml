@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dezz-osint"
+version = "0.2.0"
+description = "Unified passive OSINT CLI + MCP server — tested engines only, no dummy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "dezzorigin" }]
+keywords = ["osint", "recon", "mcp", "cli"]
+dependencies = [
+    "pyfiglet",
+    "rich",
+    "requests",
+    "beautifulsoup4",
+    "phonenumbers",
+    "python-dotenv",
+    "maigret",
+    "pillow",
+    "piexif",
+    "selenium",
+    "tld",
+    "colorama",
+    "yt-dlp",
+]
+
+[project.scripts]
+dezz = "dezz.cli:main"
+dezzosint = "dezz.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/dezzorigin/dezz-osint"
+
+[tool.setuptools.packages.find]
+include = ["dezz*"]
+
+[tool.setuptools.package-data]
+dezz = ["resources_catalog.json", "spiderfoot_modules.json", "engines/murl.json", "engines/validator/email-data.json"]
