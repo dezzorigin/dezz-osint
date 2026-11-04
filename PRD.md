@@ -5,7 +5,6 @@
 | Field | Nilai |
 |---|---|
 | Nama Proyek | Dezz Osint |
-| Repo | dezzorigin/dezz-osint |
 | Tech Stack | Python |
 | Status | Selesai (production-ready) |
 | Penanggung Jawab | Nabil Aulia Dika |
@@ -14,7 +13,7 @@
 
 ## 2. Latar Belakang
 
-Proyek ini dikembangkan sebagai bagian dari portofolio dan kebutuhan operasional. Dokumen ini mengikuti standar PRD nasional untuk memastikan ruang lingkup, fitur, dan kriteria keberhasilan terdefinisi dengan jelas.
+Proyek ini dikembangkan sebagai bagian dari portofolio dan kebutuhan operasional. Dokumen ini mengikuti standar PRD nasional agar ruang lingkup, fitur, dan kriteria keberhasilan terdefinisi dengan jelas.
 
 ## 3. Masalah yang Diselesaikan
 
@@ -40,24 +39,22 @@ Pengguna membutuhkan solusi digital yang efisien, terukur, dan mudah dipelihara 
 ## 6. Fitur & Persyaratan Fungsional
 
 Struktur proyek (file/direktori utama):
-- .env
-- .env.example
-- .gitignore
 - Data/
-- LICENSE
-- README.md
 - assets/
-- dezz.py
 - dezz/
 - dezz_osint.egg-info/
-- install.sh
-- mcp.json
-- pyproject.toml
 - reports/
-- requirements.txt
 - server/
 - skills/
 - tests/
+- LICENSE
+- PRD.md
+- README.md
+- dezz.py
+- install.sh
+- mcp.json
+- pyproject.toml
+- requirements.txt
 
 ## 7. Persyaratan Non-Fungsional
 
