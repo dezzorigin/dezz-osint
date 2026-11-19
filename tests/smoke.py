@@ -70,7 +70,6 @@ def t_mcp():
                         input=b'{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"ip_lookup","arguments":{"ip":"8.8.8.8"}}}\n',
                         capture_output=True, cwd=str(ROOT), timeout=60)
     assert "United States" in p2.stdout.decode()
-    import tempfile as _tf
     gps = os.path.join(_tf.gettempdir(), "dezz_smoke_gps.jpg")
     if not os.path.exists(gps):  # t_exif usually creates it; make it here too (order-independent)
         from PIL import Image

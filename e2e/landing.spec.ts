@@ -36,9 +36,29 @@ test("tab terminal berganti output", async ({ page }) => {
 
 test("mobile 390px: tanpa scroll horizontal", async ({ page }) => {
   await page.goto("/");
-  // Tunggu webfont selesai supaya pengukuran lebar deterministik —
-  // tanpa ini, overflow bergantung pada balapan load font (flaky).
-  await page.evaluate(() => document.fonts.ready);
+  // DIAG SEMENTARA (hapus sesudah diagnosis): laporkan elemen yang
+  // melebar melewati viewport — isi wadah scroll (pre overflow-x:auto)
+  // diabaikan karena bukan penyebab overflow dokumen.
+  const offenders = await page.evaluate(() => {
+    const out: string[] = [];
+    const vw = document.documentElement.clientWidth;
+    document.querySelectorAll("body *").forEach((el) => {
+      const r = (el as HTMLElement).getBoundingClientRect();
+      if (r.right <= vw + 1) return;
+      let p: HTMLElement | null = (el as HTMLElement).parentElement;
+      let clipped = false;
+      while (p && p !== document.body) {
+        const o = getComputedStyle(p).overflowX;
+        if (o === "auto" || o === "hidden" || o === "scroll") { clipped = true; break; }
+        p = p.parentElement;
+      }
+      if (clipped) return;
+      const cls = typeof el.className === "string" ? el.className.split(" ")[0] : "";
+      out.push(`${el.tagName.toLowerCase()}${cls ? "." + cls : ""} w=${Math.round(r.width)} right=${Math.round(r.right)} :: ${(el.textContent || "").trim().slice(0, 70)}`);
+    });
+    return out.slice(0, 12);
+  });
+  console.log("DIAG-OVERFLOW offenders:\n" + (offenders.join("\n") || "(tidak ada)"));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
   await expect(page.locator("h1").first()).toBeVisible();
