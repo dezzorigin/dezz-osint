@@ -48,7 +48,7 @@ for tag in ['property="og:title"', 'property="og:description"',
         fails.append(f"tag hilang: {tag}")
 
 for path, want_ct in [("/og-image.png", "image/"), ("/styles.css", "text/css"),
-                      ("/app.js", "javascript"), ("/favicon.svg", "image/")]:
+                      ("/app.js", "text/javascript"), ("/favicon.svg", "image/")]:
     st, ct, body = get(path)
     print(f"{path}: {st} {ct} {len(body)} bytes")
     if st != 200:
