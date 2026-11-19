@@ -73,7 +73,7 @@ code, pre { font-family: var(--mono); font-variant-numeric: tabular-nums; }
   margin: 0 auto;
   padding: 40px 24px 64px;
 }
-.rail { position: relative; }
+.rail { position: relative; min-width: 0; }
 .rail .thread {
   position: absolute; top: 0; bottom: 0; right: -20px;
   width: 2px; background: var(--sinyal);
@@ -225,7 +225,8 @@ h1 {
   border: 1px solid var(--garis); border-radius: 8px;
   background: var(--kartu); padding: 8px 12px;
 }
-.steps { margin: 0 0 16px; padding-left: 24px; display: grid; gap: 20px; }
+.steps { margin: 0 0 16px; padding-left: 24px; display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); }
+.steps > li { min-width: 0; }
 .steps pre { margin: 8px 0 0; }
 
 /* ── Footer ─────────────────────────────────────────────── */
