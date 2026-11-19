@@ -106,7 +106,6 @@ def t_server_shape():
     assert d.get("status") == "redirect" and d.get("url", "").startswith("https://"), str(d)[:150]
 
 def t_no_dead_imports():
-    import subprocess as sp
     dead = ["idcheck", "instaemailfind", "scrap", "paste", "sololearn"]
     found = [d for d in dead if list((ROOT / "dezz" / "engines").rglob(f"{d}.py"))]
     assert not found, f"dead modules still present: {found}"

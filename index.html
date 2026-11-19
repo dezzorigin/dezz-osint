@@ -42,7 +42,7 @@
       tempel satu target — nomor, username, email, IP, domain, URL,
       foto — dan mesin yang cocok menjalankannya. Tiap temuan dicap
       verdict-nya, bukan disulap jadi fakta.</p>
-    <ul class="stamps" aria-label="Arti cap verdict">
+    <ul class="stamps">
       <li><span class="stamp verified">[verified]</span> terkonfirmasi API</li>
       <li><span class="stamp candidate">[?]</span> kandidat, cek manual</li>
       <li><span class="stamp skip">[SKIP]</span> butuh kunci / layanan</li>
@@ -61,7 +61,7 @@
       <pre><code>git clone https://github.com/dezzorigin/dezz-osint.git
 cd dezz-osint
 pip install .</code></pre>
-      <button class="btn primary" data-copy="git clone https://github.com/dezzorigin/dezz-osint.git
+      <button type="button" class="btn primary" data-copy="git clone https://github.com/dezzorigin/dezz-osint.git
 cd dezz-osint
 pip install .">Salin perintah install</button>
       <p class="copy-note" role="status" aria-live="polite"></p>
@@ -85,10 +85,10 @@ pip install .">Salin perintah install</button>
           <span class="term-title">dezz — zsh</span>
         </div>
         <div class="term-tabs" role="tablist" aria-label="Contoh perintah">
-          <button role="tab" aria-selected="true" data-tab="ip" id="tab-ip">dezz ip 8.8.8.8</button>
-          <button role="tab" aria-selected="false" data-tab="github" id="tab-github">dezz github torvalds</button>
-          <button role="tab" aria-selected="false" data-tab="resources" id="tab-resources">dezz resources “sherlock”</button>
-          <button role="tab" aria-selected="false" data-tab="sf" id="tab-sf">dezz sf --search dns</button>
+          <button type="button" role="tab" aria-selected="true" data-tab="ip" id="tab-ip">dezz ip 8.8.8.8</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="github" id="tab-github">dezz github torvalds</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="resources" id="tab-resources">dezz resources “sherlock”</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="sf" id="tab-sf">dezz sf --search dns</button>
         </div>
         <div class="term-body">
           <pre id="term-ip" role="tabpanel" aria-labelledby="tab-ip"><code><span class="p">$</span> dezz ip 8.8.8.8
@@ -133,7 +133,7 @@ di checkout SpiderFoot, bukan pura-pura jalan.</span></code></pre>
         </div>
         <div class="term-foot">
           <span>Sumber: ip-api · api.github.com · katalog lokal · spiderfoot_modules.json</span>
-          <button class="btn ghost" id="copy-cmd">Salin perintah aktif</button>
+          <button type="button" class="btn ghost" id="copy-cmd">Salin perintah aktif</button>
         </div>
       </div>
     </section>
@@ -202,7 +202,7 @@ di checkout SpiderFoot, bukan pura-pura jalan.</span></code></pre>
       <p class="section-lede">Server stdio JSON-RPC 2.0 (MCP 2024-11-05)
         untuk Claude Desktop / opencode. Tiap tool memanggil engine
         yang sama persis dengan CLI — bukan implementasi kedua.</p>
-      <ul class="tool-chips" aria-label="Daftar tool MCP">
+      <ul class="tool-chips">
         <li>phone_lookup</li><li>username_search</li><li>email_recon</li>
         <li>ip_lookup</li><li>domain_recon</li><li>github_lookup</li>
         <li>url_recon</li><li>osint_resources</li><li>spiderfoot_plan</li>
@@ -219,7 +219,7 @@ di checkout SpiderFoot, bukan pura-pura jalan.</span></code></pre>
     }
   }
 }</code></pre>
-      <button class="btn primary" data-copy='{
+      <button type="button" class="btn primary" data-copy='{
   "mcpServers": {
     "dezz-osint": {
       "command": "python",
@@ -230,9 +230,9 @@ di checkout SpiderFoot, bukan pura-pura jalan.</span></code></pre>
   }
 }'>Salin mcp.json</button>
       <p class="copy-note" role="status" aria-live="polite"></p>
-      <p class="section-lede">Cek server hidup:
-        <code>echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
-        | python -m dezz.mcp.server</code> — harus menjawab 13 tool.</p>
+      <p class="section-lede">Cek server hidup — harus menjawab 13 tool:</p>
+      <pre><code>echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
+  | python -m dezz.mcp.server</code></pre>
     </section>
 
     <section id="install" aria-labelledby="install-h">

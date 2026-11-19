@@ -151,7 +151,7 @@ h1 {
   font-size: 28px; letter-spacing: -0.01em; margin: 0 0 8px; font-weight: 800;
 }
 .section-lede { max-width: 72ch; margin: 0 0 16px; }
-.section-lede code, td code, li code { font-size: 0.88em; }
+.section-lede code, td code, li code { font-size: 0.88em; overflow-wrap: anywhere; }
 
 /* ── Terminal ───────────────────────────────────────────── */
 .terminal {

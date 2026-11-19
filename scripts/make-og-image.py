@@ -20,12 +20,10 @@ KERTAS = (239, 233, 221)   # #EFE9DD
 TINTA = (27, 23, 18)       # #1B1712
 SINYAL = (180, 35, 24)     # #B42318
 TEAL = (15, 91, 94)         # #0F5B5E
-KUNING = (183, 121, 31)     # #B7791F
 GARIS = (213, 205, 189)     # #D5CDBD
 KARTU = (247, 243, 234)     # #F7F3EA
 MUTED = (92, 85, 70)        # #5C5546
 
-SERIF_B = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
 SANS = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 SANS_B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 MONO = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"

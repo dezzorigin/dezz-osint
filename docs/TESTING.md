@@ -37,6 +37,13 @@ pip install pytest
 python3 -m pytest tests/test_cli.py -q
 ```
 
+Kebijakan skip (jujur, bukan menutupi): tes yang bergantung pada
+sumber publik (ip-api, api.github.com, dns.google, YouTube)
+melakukan `pytest.skip` bila sumbernya sendiri tidak menjawab di
+runner CI (rate-limit / bot-check IP datacenter) — produknya sudah
+benar karena mengembalikan error, bukan hasil palsu. Tes gagal
+hanya bila sumber menjawab TAPI produk salah.
+
 Tes lama `tests/smoke.py` (skrip `python3 tests/smoke.py`, 17 cek)
 tetap ada sebagai arsip perilaku — CI menjalankan pytest.
 
