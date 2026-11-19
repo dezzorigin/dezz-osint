@@ -36,6 +36,9 @@ test("tab terminal berganti output", async ({ page }) => {
 
 test("mobile 390px: tanpa scroll horizontal", async ({ page }) => {
   await page.goto("/");
+  // Tunggu webfont selesai supaya pengukuran lebar deterministik —
+  // tanpa ini, overflow bergantung pada balapan load font (flaky).
+  await page.evaluate(() => document.fonts.ready);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
   await expect(page.locator("h1").first()).toBeVisible();
