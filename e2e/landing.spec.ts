@@ -37,11 +37,20 @@ test("tab terminal berganti output", async ({ page }) => {
 test("mobile 390px: tanpa scroll horizontal", async ({ page }) => {
   await page.goto("/");
   // DIAG SEMENTARA (hapus sesudah diagnosis): laporkan elemen yang
-  // melebar melewati viewport — isi wadah scroll (pre overflow-x:auto)
-  // diabaikan karena bukan penyebab overflow dokumen.
-  const offenders = await page.evaluate(() => {
-    const out: string[] = [];
+  // melebar melewati viewport + gaya terhitung yang menentukan.
+  const diag = await page.evaluate(() => {
+    const q = (s: string) => document.querySelector(s) as HTMLElement | null;
+    const lines: string[] = [];
+    lines.push(`doc scrollWidth=${document.documentElement.scrollWidth} clientWidth=${document.documentElement.clientWidth}`);
+    for (const s of [".dossier", ".rail", ".content", ".terminal", ".engines", ".install-card", ".foot", ".topbar"]) {
+      const el = q(s);
+      if (el) lines.push(`${s}: w=${Math.round(el.getBoundingClientRect().width)} scrollW=${el.scrollWidth} clientW=${el.clientWidth} display=${getComputedStyle(el).display}`);
+    }
+    lines.push(`dossier gridTemplateColumns=${getComputedStyle(q(".dossier")!).gridTemplateColumns}`);
+    lines.push(`engines display=${getComputedStyle(q(".engines")!).display} thead=${getComputedStyle(q(".engines thead")!).display}`);
+    lines.push(`install pre scrollW=${(q(".install-card pre") as HTMLElement)?.scrollWidth} clientW=${(q(".install-card pre") as HTMLElement)?.clientWidth}`);
     const vw = document.documentElement.clientWidth;
+    const out: string[] = [];
     document.querySelectorAll("body *").forEach((el) => {
       const r = (el as HTMLElement).getBoundingClientRect();
       if (r.right <= vw + 1) return;
@@ -54,11 +63,12 @@ test("mobile 390px: tanpa scroll horizontal", async ({ page }) => {
       }
       if (clipped) return;
       const cls = typeof el.className === "string" ? el.className.split(" ")[0] : "";
-      out.push(`${el.tagName.toLowerCase()}${cls ? "." + cls : ""} w=${Math.round(r.width)} right=${Math.round(r.right)} :: ${(el.textContent || "").trim().slice(0, 70)}`);
+      out.push(`${el.tagName.toLowerCase()}${cls ? "." + cls : ""} w=${Math.round(r.width)} right=${Math.round(r.right)} :: ${(el.textContent || "").trim().slice(0, 60)}`);
     });
-    return out.slice(0, 12);
+    lines.push("OFFENDERS:\n" + (out.slice(0, 30).join("\n") || "(tidak ada)"));
+    return lines.join("\n");
   });
-  console.log("DIAG-OVERFLOW offenders:\n" + (offenders.join("\n") || "(tidak ada)"));
+  console.log("DIAG-OVERFLOW:\n" + diag);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
   await expect(page.locator("h1").first()).toBeVisible();
