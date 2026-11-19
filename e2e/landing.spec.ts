@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import * as fs from "node:fs";
 
 // Landing dezz-osint adalah etalase CLI + MCP: yang diuji adalah konten
 // + interaksi halamannya (tab terminal, tombol salin, tabel mesin, cap
@@ -69,6 +70,10 @@ test("mobile 390px: tanpa scroll horizontal", async ({ page }) => {
     return lines.join("\n");
   });
   console.log("DIAG-OVERFLOW:\n" + diag);
+  // DIAG SEMENTARA: tulis juga ke file supaya debug step CI bisa
+  // menempelkannya utuh (tail log sering memotong output ini).
+  fs.mkdirSync("test-results", { recursive: true });
+  fs.writeFileSync(`test-results/diag-${test.info().project.name}.txt`, diag);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
   await expect(page.locator("h1").first()).toBeVisible();

@@ -156,7 +156,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          { echo '```'; tail -80 /tmp/e2e.log; echo '```'; } > /tmp/e2e-comment.txt
+          { echo '```'; cat test-results/diag-mobile.txt 2>/dev/null || echo '(tidak ada diag-mobile.txt)'; echo '```'; echo; { echo '```'; tail -40 /tmp/e2e.log; echo '```'; } } > /tmp/e2e-comment.txt
           gh pr comment 1 --body-file /tmp/e2e-comment.txt
 
   # ── Smoke: file deploy ada & tidak kosong ──────────────────────────────
