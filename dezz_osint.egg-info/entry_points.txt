@@ -1,3 +1,0 @@
-[console_scripts]
-dezz = dezz.cli:main
-dezzosint = dezz.cli:main
