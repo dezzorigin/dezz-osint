@@ -7,7 +7,6 @@ Cek: root 200 + marker landing + semua tag og:/twitter: + og-image.png
 """
 import sys
 import urllib.request
-import urllib.error
 
 BASE = "https://dezz-osint.pages.dev"
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "

@@ -108,6 +108,8 @@ jobs:
   # ── E2E Playwright (landing statis, HANYA di CI) ──────────────────────
   playwright-e2e:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -123,7 +125,19 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: E2E landing (desktop + mobile)
-        run: npm run e2e
+        run: npm run e2e 2>&1 | tee /tmp/e2e.log
+
+      # DEBUG SEMENTARA (hapus sesudah diagnosis): log CI tidak bisa
+      # diunduh dari VM (approval host storage), jadi output e2e yang
+      # gagal ditempel sebagai komentar PR supaya bisa dibaca.
+      - name: Debug e2e ke PR (sementara)
+        if: failure()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          { echo '```'; tail -60 /tmp/e2e.log; echo '```'; } > /tmp/e2e-comment.txt
+          gh pr comment 1 --body-file /tmp/e2e-comment.txt
 
   # ── Smoke: file deploy ada & tidak kosong ──────────────────────────────
   smoke:
