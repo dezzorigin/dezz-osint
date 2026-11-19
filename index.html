@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dezz-osint — CLI OSINT pasif + MCP</title>
+<meta name="description" content="dezz-osint: CLI OSINT pasif + server MCP. 14 perintah, 13 tool MCP, 0 kunci wajib. Hasil dicap jujur: [verified], [?] kandidat, [SKIP] gate.">
+<meta property="og:title" content="dezz-osint — CLI OSINT pasif + MCP">
+<meta property="og:description" content="14 perintah, 13 tool MCP, 0 kunci wajib. Satu target, kupas tuntas — hasil dicap [verified], [?] kandidat, atau [SKIP].">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dezz-osint.pages.dev/">
+<meta property="og:image" content="https://dezz-osint.pages.dev/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="dezz-osint — CLI OSINT pasif + MCP">
+<meta name="twitter:description" content="14 perintah, 13 tool MCP, 0 kunci wajib. Satu target, kupas tuntas — hasil dicap [verified], [?] kandidat, atau [SKIP].">
+<meta name="twitter:image" content="https://dezz-osint.pages.dev/og-image.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#atas">dezz-osint</a>
+  <nav aria-label="Navigasi utama">
+    <a href="#terminal">Terminal</a>
+    <a href="#mesin">Mesin</a>
+    <a href="#dossier">Dossier</a>
+    <a href="#mcp">MCP</a>
+    <a href="#install">Install</a>
+  </nav>
+  <span class="verdict-chip verified">v0.2.0 · proper</span>
+</header>
+
+<main id="atas" class="dossier">
+  <aside class="rail" aria-label="Indeks berkas">
+    <div class="thread" aria-hidden="true"></div>
+    <p class="kicker">Berkas penyelidikan · CLI + MCP</p>
+    <h1>Satu target,<br>tiga belas mesin.</h1>
+    <p class="lede">dezz-osint adalah CLI OSINT <strong>pasif</strong>:
+      tempel satu target — nomor, username, email, IP, domain, URL,
+      foto — dan mesin yang cocok menjalankannya. Tiap temuan dicap
+      verdict-nya, bukan disulap jadi fakta.</p>
+    <ul class="stamps">
+      <li><span class="stamp verified">[verified]</span> terkonfirmasi API</li>
+      <li><span class="stamp candidate">[?]</span> kandidat, cek manual</li>
+      <li><span class="stamp skip">[SKIP]</span> butuh kunci / layanan</li>
+    </ul>
+    <dl class="facts">
+      <div><dt>Perintah CLI</dt><dd>14</dd></div>
+      <div><dt>Tool MCP</dt><dd>13</dd></div>
+      <div><dt>Entri katalog OSINT</dt><dd>3.793</dd></div>
+      <div><dt>Modul SpiderFoot</dt><dd>233</dd></div>
+      <div><dt>Kunci wajib</dt><dd>0</dd></div>
+    </dl>
+    <p class="facts-note">Angka di atas angka nyata repo, dicek 19 Nov 2026 —
+      bukan statistik vanity.</p>
+    <div class="install-card">
+      <p class="install-card-title">Mulai dalam 3 baris</p>
+      <pre><code>git clone https://github.com/dezzorigin/dezz-osint.git
+cd dezz-osint
+pip install .</code></pre>
+      <button type="button" class="btn primary" data-copy="git clone https://github.com/dezzorigin/dezz-osint.git
+cd dezz-osint
+pip install .">Salin perintah install</button>
+      <p class="copy-note" role="status" aria-live="polite"></p>
+      <p class="install-note">Butuh Python ≥3.10. Install memakan waktu
+        beberapa menit — <code>maigret</code> + <code>selenium</code> itu berat.</p>
+    </div>
+    <p class="ethics"><strong>Target yang sah saja.</strong> Data sendiri
+      atau atas izin — cek nomor penipu, cek kebocoran email sendiri.
+      Bukan untuk doxxing atau stalking.</p>
+  </aside>
+
+  <div class="content">
+    <section id="terminal" aria-labelledby="terminal-h">
+      <h2 id="terminal-h">Jendela terminal</h2>
+      <p class="section-lede">Output asli, direkam dari perintah yang sama
+        pada 19 Nov 2026. Pilih perintah, baca keluarannya — tanpa
+        diedit, tanpa dibumbui.</p>
+      <div class="terminal">
+        <div class="term-bar" aria-hidden="true">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="term-title">dezz — zsh</span>
+        </div>
+        <div class="term-tabs" role="tablist" aria-label="Contoh perintah">
+          <button type="button" role="tab" aria-selected="true" data-tab="ip" id="tab-ip">dezz ip 8.8.8.8</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="github" id="tab-github">dezz github torvalds</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="resources" id="tab-resources">dezz resources “sherlock”</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="sf" id="tab-sf">dezz sf --search dns</button>
+        </div>
+        <div class="term-body">
+          <pre id="term-ip" role="tabpanel" aria-labelledby="tab-ip"><code><span class="p">$</span> dezz ip 8.8.8.8
+
+IP: 8.8.8.8
+lokasi: Ashburn, Virginia, United States
+koordinat: 39.03, -77.5
+ISP: Google LLC
+organisasi: Google Public DNS</code></pre>
+          <pre id="term-github" role="tabpanel" aria-labelledby="tab-github" hidden><code><span class="p">$</span> dezz github torvalds
+
+Linus Torvalds
+332412 followers · 12 repo
+lokasi: Portland, OR
+https://github.com/torvalds
+
+<span class="dim">angka followers/repo adalah angka live saat dicek —
+berubah seiring waktu.</span></code></pre>
+          <pre id="term-resources" role="tabpanel" aria-labelledby="tab-resources" hidden><code><span class="p">$</span> dezz resources "sherlock" --limit 5
+
+Social Media Tools · Sherlock
+  https://t.me/Getcontact123qwerty_bot?start=_ref_jGW8Sa_iEmG9V
+Username Check · Sherlock
+  https://github.com/sherlock-project/sherlock
+Username Check · SherlockEye
+  https://sherlockeye.io/
+
+<span class="dim">dari katalog offline 3.793 entri — tanpa jaringan.</span></code></pre>
+          <pre id="term-sf" role="tabpanel" aria-labelledby="tab-sf" hidden><code><span class="p">$</span> dezz sf --search dns
+
+sfp_adguard_dns — AdGuard DNS
+  Check if a host would be blocked by AdGuard DNS.
+sfp_binaryedge — BinaryEdge
+  Obtain information from BinaryEdge.io … passive DNS.
+sfp_circllu — CIRCL.LU
+  Obtain information from CIRCL.LU's Passive DNS and
+  Passive SSL databases.
+  … 15 modul cocok dengan "dns"
+
+<span class="dim">dezz merancang perintah scan — dijalankan manual
+di checkout SpiderFoot, bukan pura-pura jalan.</span></code></pre>
+        </div>
+        <div class="term-foot">
+          <span>Sumber: ip-api · api.github.com · katalog lokal · spiderfoot_modules.json</span>
+          <button type="button" class="btn ghost" id="copy-cmd">Salin perintah aktif</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="mesin" aria-labelledby="mesin-h">
+      <h2 id="mesin-h">Empat belas mesin, satu benang</h2>
+      <p class="section-lede">Benang merah ditarik dari target ke tiap mesin.
+        Mesin yang butuh syarat tidak mengarang — ia mencetak
+        <span class="stamp skip">SKIP</span> dan cara memulihkannya.</p>
+      <table class="engines">
+        <thead>
+          <tr><th scope="col">Perintah</th><th scope="col">Yang dilakukan</th><th scope="col">Sumber</th><th scope="col">Kunci</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>dezz phone</code></td><td>Intel nomor: operator, daerah, E164, wa.me</td><td>phonenumbers (offline)</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz username</code></td><td>Jejak username: cepat / maigret / tookie 262 situs</td><td>GitHub API · Maigret · Tookie</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz email</code></td><td>MX + Gravatar + Firefox + breach HudsonRock</td><td>DNS · Firefox · HudsonRock</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz ip</code></td><td>Geolokasi + ISP</td><td>ip-api.com</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz domain</code></td><td>DNS-over-HTTPS + subdomain crt.sh + RDAP</td><td>dns.google · crt.sh</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz url</code></td><td>Header + judul + arsip Wayback</td><td>HTTP · Wayback CDX</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz crawl</code></td><td>Sedot isi website (Photon / crawler bawaan)</td><td>Photon · HTTP</td><td><span class="stamp skip">checkout opsional</span></td></tr>
+          <tr><td><code>dezz exif</code></td><td>Metadata + GPS foto</td><td>EXIF lokal</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz github</code></td><td>Profil + repo teratas</td><td>api.github.com</td><td><span class="stamp candidate">opsional*</span></td></tr>
+          <tr><td><code>dezz dl</code></td><td>Info/download video-audio, 1000+ situs</td><td>yt-dlp</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz resources</code></td><td>Cari 3.793 tool OSINT (offline)</td><td>resources_catalog.json</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+          <tr><td><code>dezz sf</code></td><td>Rancang scan dari 233 modul SpiderFoot</td><td>spiderfoot_modules.json</td><td><span class="stamp skip">jalan manual</span></td></tr>
+          <tr><td><code>dezz tor</code></td><td>Status layanan Tor (gate jujur)</td><td>Tor lokal</td><td><span class="stamp skip">butuh Tor</span></td></tr>
+          <tr><td><code>dezz dossier</code></td><td>Kupas tuntas + arsip JSON di Data/</td><td>semua di atas</td><td><span class="stamp verified">tanpa kunci</span></td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">* <code>GITHUB_TOKEN</code> opsional: menaikkan
+        limit api.github.com dari 60 ke 5.000 req/jam. Tanpa token semua
+        tetap jalan.</p>
+    </section>
+
+    <section id="dossier" aria-labelledby="dossier-h">
+      <h2 id="dossier-h">Contoh dossier: 8.8.8.8</h2>
+      <p class="section-lede"><code>dezz dossier 8.8.8.8</code> menebak
+        jenis target (IP), menjalankan mesin yang cocok, menampilkan
+        tiap seksi di terminal, dan menyimpan arsip JSON-nya.
+        Potongan arsipnya — nilai asli dari pengecekan 19 Nov 2026:</p>
+      <pre class="dossier-json"><code>{
+  "target": "8.8.8.8",
+  "engines": {
+    "ip": {
+      "ok": true,
+      "data": {
+        "ip": "8.8.8.8",
+        "country": "United States",
+        "city": "Ashburn",
+        "isp": "Google LLC",
+        "org": "Google Public DNS"
+      }
+    },
+    "url": { "ok": true, "data": { "...": "header + Wayback" } },
+    "resources_hint": { "ok": true, "data": [ "..." ] }
+  }
+}</code></pre>
+      <p class="section-lede">Tanpa argumen, <code>dezz</code> masuk menu
+        interaktif bernomor — hasil panjang ditawari tampil di layar
+        atau simpan <code>.md</code> ke <code>Data/</code>.</p>
+    </section>
+
+    <section id="mcp" aria-labelledby="mcp-h">
+      <h2 id="mcp-h">MCP: 13 tool, engine yang sama</h2>
+      <p class="section-lede">Server stdio JSON-RPC 2.0 (MCP 2024-11-05)
+        untuk Claude Desktop / opencode. Tiap tool memanggil engine
+        yang sama persis dengan CLI — bukan implementasi kedua.</p>
+      <ul class="tool-chips">
+        <li>phone_lookup</li><li>username_search</li><li>email_recon</li>
+        <li>ip_lookup</li><li>domain_recon</li><li>github_lookup</li>
+        <li>url_recon</li><li>osint_resources</li><li>spiderfoot_plan</li>
+        <li>full_dossier</li><li>web_crawl</li><li>image_exif</li>
+        <li>media_download</li>
+      </ul>
+      <pre><code>{
+  "mcpServers": {
+    "dezz-osint": {
+      "command": "python",
+      "args": ["-m", "dezz.mcp.server"],
+      "cwd": "/path/to/dezz-osint",
+      "env": {}
+    }
+  }
+}</code></pre>
+      <button type="button" class="btn primary" data-copy='{
+  "mcpServers": {
+    "dezz-osint": {
+      "command": "python",
+      "args": ["-m", "dezz.mcp.server"],
+      "cwd": "/path/to/dezz-osint",
+      "env": {}
+    }
+  }
+}'>Salin mcp.json</button>
+      <p class="copy-note" role="status" aria-live="polite"></p>
+      <p class="section-lede">Cek server hidup — harus menjawab 13 tool:</p>
+      <pre><code>echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
+  | python -m dezz.mcp.server</code></pre>
+    </section>
+
+    <section id="install" aria-labelledby="install-h">
+      <h2 id="install-h">Install &amp; jalanin</h2>
+      <ol class="steps">
+        <li><strong>Clone + install.</strong>
+          <pre><code>git clone https://github.com/dezzorigin/dezz-osint.git
+cd dezz-osint
+python3 -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install .
+dezz phone +6281234567890</code></pre></li>
+        <li><strong>Atau satu perintah.</strong>
+          <pre><code>curl -sSL https://raw.githubusercontent.com/dezzorigin/dezz-osint/main/install.sh | bash</code></pre></li>
+        <li><strong>Kunci opsional.</strong> <code>cp .env.example .env</code>
+          lalu isi yang perlu saja (<code>GITHUB_TOKEN</code>,
+          <code>GOOGLE_API_KEY</code> + <code>GOOGLE_CX</code>). Semua
+          perintah inti jalan tanpanya — dan <code>.env</code> tidak
+          pernah ke-commit.</li>
+      </ol>
+      <p class="section-lede">Rilis CLI: <a href="https://github.com/dezzorigin/dezz-osint/releases">GitHub Releases
+        (v1.0-proper)</a> · Kode: <a href="https://github.com/dezzorigin/dezz-osint">github.com/dezzorigin/dezz-osint</a> ·
+        Docs lengkap: <a href="https://github.com/dezzorigin/dezz-osint/tree/main/docs">docs/</a> (PRD → arsitektur →
+        cara pakai → testing → deploy).</p>
+      <p class="section-lede">Server pendamping <code>dezz-extract</code>
+        (<code>server/</code>) adalah backend yt-dlp pengganti Cobalt
+        untuk DezDownload — dijalankan terpisah, bukan bagian CLI.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <span>dezz-osint · MIT · dezzorigin (Nabil Aulia Dika)</span>
+  <span>Landing ini etalase — produknya CLI + MCP yang jalan di terminal.</span>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

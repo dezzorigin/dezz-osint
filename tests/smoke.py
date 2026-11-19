@@ -70,7 +70,6 @@ def t_mcp():
                         input=b'{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"ip_lookup","arguments":{"ip":"8.8.8.8"}}}\n',
                         capture_output=True, cwd=str(ROOT), timeout=60)
     assert "United States" in p2.stdout.decode()
-    import tempfile as _tf
     gps = os.path.join(_tf.gettempdir(), "dezz_smoke_gps.jpg")
     if not os.path.exists(gps):  # t_exif usually creates it; make it here too (order-independent)
         from PIL import Image
@@ -106,7 +105,6 @@ def t_server_shape():
     assert d.get("status") == "redirect" and d.get("url", "").startswith("https://"), str(d)[:150]
 
 def t_no_dead_imports():
-    import subprocess as sp
     dead = ["idcheck", "instaemailfind", "scrap", "paste", "sololearn"]
     found = [d for d in dead if list((ROOT / "dezz" / "engines").rglob(f"{d}.py"))]
     assert not found, f"dead modules still present: {found}"

@@ -1,13 +1,16 @@
-pyfiglet
-rich
-requests
-beautifulsoup4
-phonenumbers
-python-dotenv
-maigret
-pillow
-piexif
-selenium
-tld
-colorama
-yt-dlp
+# Dependensi produksi dezz-osint — dipin == (versi terbaru PyPI, 19 Nov 2026)
+# agar install deterministik dan OSV sweep (scripts/advisory-sweep.py) punya
+# versi pasti untuk dicek. JANGAN longgarkan ke >= tanpa mengulang sweep.
+pyfiglet==1.0.4
+rich==15.0.0
+requests==2.34.2
+beautifulsoup4==4.15.0
+phonenumbers==9.0.43
+python-dotenv==1.2.4
+maigret==0.6.6
+pillow==13.0.0
+piexif==1.1.3
+selenium==4.53.0
+tld==0.13.2
+colorama==0.4.6
+yt-dlp==2026.10.26

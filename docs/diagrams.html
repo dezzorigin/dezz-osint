@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Diagram — dezz-osint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: Georgia, serif; background: #EFE9DD; color: #1B1712; margin: 0; padding: 32px 20px; line-height: 1.5; }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-family: "Archivo", Arial, sans-serif; font-size: 30px; margin: 0 0 4px; }
+  h2 { font-family: "Archivo", Arial, sans-serif; font-size: 20px; margin: 40px 0 8px; }
+  p { max-width: 72ch; }
+  figure { margin: 16px 0; background: #fff; border: 1px solid #D5CDBD; border-radius: 10px; padding: 16px; overflow-x: auto; }
+  figcaption { font-family: monospace; font-size: 13px; color: #0F5B5E; margin-top: 8px; }
+  svg text { font-family: "JetBrains Mono", monospace; }
+  .box { fill: #fff; stroke: #1B1712; stroke-width: 1.5; }
+  .accent { fill: #B42318; }
+  .teal { fill: #0F5B5E; }
+  .amber { fill: #B7791F; }
+  .arrow { stroke: #B42318; stroke-width: 2; fill: none; marker-end: url(#ah); }
+  .thin { stroke: #1B1712; stroke-width: 1.5; fill: none; marker-end: url(#ah2); }
+  a { color: #0F5B5E; }
+</style>
+</head>
+<body>
+<main>
+<h1>Diagram dezz-osint</h1>
+<p>Diagram editorial (SVG buatan tangan, bukan Mermaid). Sumber kebenaran
+tekstual: <a href="ARCHITECTURE.md">ARCHITECTURE.md</a> dan
+<a href="USAGE.md">USAGE.md</a>.</p>
+
+<h2>1. Arsitektur lapisan</h2>
+<figure>
+<svg width="880" height="430" viewBox="0 0 880 430" role="img" aria-label="Diagram arsitektur dezz-osint">
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#B42318"/></marker>
+    <marker id="ah2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1B1712"/></marker>
+  </defs>
+  <rect class="box" x="280" y="16" width="320" height="52" rx="10"/>
+  <text x="440" y="48" text-anchor="middle" font-size="16" font-weight="bold">PENGGUNA (analis / mahasiswa)</text>
+  <rect class="box" x="180" y="104" width="520" height="52" rx="10"/>
+  <text x="440" y="128" text-anchor="middle" font-size="15" font-weight="bold">ANTARMUKA — dezz/cli.py + dezz.py</text>
+  <text x="440" y="148" text-anchor="middle" font-size="12">argparse · menu interaktif · banner · loading + durasi</text>
+  <rect class="box" x="180" y="192" width="250" height="52" rx="10"/>
+  <text x="305" y="216" text-anchor="middle" font-size="14" font-weight="bold">ORKESTRATOR</text>
+  <text x="305" y="236" text-anchor="middle" font-size="12">dossier() — tebak jenis target</text>
+  <rect class="box" x="450" y="192" width="250" height="52" rx="10"/>
+  <text x="575" y="216" text-anchor="middle" font-size="14" font-weight="bold">MCP SERVER (stdio)</text>
+  <text x="575" y="236" text-anchor="middle" font-size="12">13 tool · JSON-RPC 2.0</text>
+  <rect class="box" x="60" y="280" width="360" height="52" rx="10"/>
+  <text x="240" y="304" text-anchor="middle" font-size="14" font-weight="bold">MESIN — dezz/engines/*.py</text>
+  <text x="240" y="324" text-anchor="middle" font-size="12">phone · email · ip · domain · url · github · exif · dl</text>
+  <rect class="box" x="460" y="280" width="360" height="52" rx="10"/>
+  <text x="640" y="304" text-anchor="middle" font-size="14" font-weight="bold">ADAPTER — dezz/adapters/*.py</text>
+  <text x="640" y="324" text-anchor="middle" font-size="12">maigret · tookie · photon · spiderfoot · katalog</text>
+  <rect class="box" x="180" y="368" width="520" height="46" rx="10"/>
+  <text x="440" y="390" text-anchor="middle" font-size="14" font-weight="bold">SUMBER PASIF — ip-api · dns.google · crt.sh · api.github.com</text>
+  <text x="440" y="406" text-anchor="middle" font-size="12">tanpa kunci · hasil dicap [verified] / [?] / [SKIP]</text>
+  <path class="arrow" d="M440 68 L440 100"/>
+  <path class="arrow" d="M340 156 L340 188"/>
+  <path class="arrow" d="M540 156 L540 188"/>
+  <path class="thin" d="M305 244 L240 276"/>
+  <path class="thin" d="M575 244 L640 276"/>
+  <path class="thin" d="M240 332 L400 364"/>
+  <path class="thin" d="M640 332 L480 364"/>
+  <text x="452" y="90" font-size="12" fill="#B42318">perintah</text>
+</svg>
+<figcaption>Gambar 1 — Satu target masuk lewat CLI atau MCP, dipecah ke mesin yang cocok, keluar sebagai teks per seksi + arsip JSON.</figcaption>
+</figure>
+
+<h2>2. Alur dossier: dari target ke verdict</h2>
+<figure>
+<svg width="880" height="300" viewBox="0 0 880 300" role="img" aria-label="Alur dossier dezz-osint">
+  <defs>
+    <marker id="bh" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#B42318"/></marker>
+  </defs>
+  <rect class="box" x="16" y="110" width="150" height="80" rx="10"/>
+  <text x="91" y="140" text-anchor="middle" font-size="14" font-weight="bold">TARGET</text>
+  <text x="91" y="162" text-anchor="middle" font-size="12">8.8.8.8 / email /</text>
+  <text x="91" y="178" text-anchor="middle" font-size="12">username / domain</text>
+  <rect class="box" x="216" y="110" width="150" height="80" rx="10"/>
+  <text x="291" y="140" text-anchor="middle" font-size="14" font-weight="bold">TEBAK JENIS</text>
+  <text x="291" y="162" text-anchor="middle" font-size="12">IP? email? nomor?</text>
+  <text x="291" y="178" text-anchor="middle" font-size="12">domain? username?</text>
+  <rect class="box" x="416" y="110" width="150" height="80" rx="10"/>
+  <text x="491" y="140" text-anchor="middle" font-size="14" font-weight="bold">JALANKAN MESIN</text>
+  <text x="491" y="162" text-anchor="middle" font-size="12">yang cocok saja,</text>
+  <text x="491" y="178" text-anchor="middle" font-size="12">best-effort, jujur gagal</text>
+  <rect class="box" x="616" y="110" width="240" height="80" rx="10"/>
+  <text x="736" y="140" text-anchor="middle" font-size="14" font-weight="bold">CAP VERDICT</text>
+  <text x="736" y="162" text-anchor="middle" font-size="12" fill="#0F5B5E">[verified] dari API</text>
+  <text x="736" y="178" text-anchor="middle" font-size="12" fill="#B7791F">[?] kandidat · [SKIP] gate</text>
+  <path class="arrow" d="M166 150 L212 150"/>
+  <path class="arrow" d="M366 150 L412 150"/>
+  <path class="arrow" d="M566 150 L612 150"/>
+  <rect class="box" x="216" y="230" width="440" height="46" rx="10"/>
+  <text x="436" y="258" text-anchor="middle" font-size="13">TAMPIL per seksi di terminal + ARSIP Data/dezz_&lt;target&gt;.json</text>
+  <path class="thin" d="M491 190 L436 226" stroke="#1B1712"/>
+</svg>
+<figcaption>Gambar 2 — Dossier tidak pernah mengarang: yang tidak terverifikasi dicap kandidat, yang butuh syarat dicap SKIP.</figcaption>
+</figure>
+
+<h2>3. Peta perintah → mesin → sumber</h2>
+<figure>
+<svg width="880" height="360" viewBox="0 0 880 360" role="img" aria-label="Peta perintah dezz-osint">
+  <rect class="box" x="16" y="16" width="260" height="328" rx="10"/>
+  <text x="146" y="44" text-anchor="middle" font-size="14" font-weight="bold">PERINTAH (14)</text>
+  <text x="30" y="72" font-size="13">phone · username · email</text>
+  <text x="30" y="96" font-size="13">ip · domain · url · crawl</text>
+  <text x="30" y="120" font-size="13">exif · github · dl</text>
+  <text x="30" y="144" font-size="13">resources · sf · tor</text>
+  <text x="30" y="168" font-size="13">dossier / run · mcp</text>
+  <text x="30" y="200" font-size="12" fill="#0F5B5E">+ menu interaktif (tanpa</text>
+  <text x="30" y="218" font-size="12" fill="#0F5B5E">argumen = masuk menu)</text>
+  <rect class="box" x="310" y="16" width="260" height="328" rx="10"/>
+  <text x="440" y="44" text-anchor="middle" font-size="14" font-weight="bold">MESIN / ADAPTER</text>
+  <text x="324" y="72" font-size="13">phone_offline (offline)</text>
+  <text x="324" y="96" font-size="13">maigret / tookie</text>
+  <text x="324" y="120" font-size="13">email_ext + firefox/hudson</text>
+  <text x="324" y="144" font-size="13">ipcheck · domaincheck</text>
+  <text x="324" y="168" font-size="13">urlcheck · photon</text>
+  <text x="324" y="192" font-size="13">image_exif · media_dl</text>
+  <text x="324" y="216" font-size="13">resources_catalog (3793)</text>
+  <text x="324" y="240" font-size="13">spiderfoot (233 modul)</text>
+  <rect class="box" x="604" y="16" width="260" height="328" rx="10"/>
+  <text x="734" y="44" text-anchor="middle" font-size="14" font-weight="bold">SUMBER</text>
+  <text x="618" y="72" font-size="13">phonenumbers (offline)</text>
+  <text x="618" y="96" font-size="13">ip-api · dns.google</text>
+  <text x="618" y="120" font-size="13">crt.sh · RDAP</text>
+  <text x="618" y="144" font-size="13">api.github.com</text>
+  <text x="618" y="168" font-size="13">Wayback CDX</text>
+  <text x="618" y="192" font-size="13">Firefox · HudsonRock</text>
+  <text x="618" y="216" font-size="13">yt-dlp · EXIF lokal</text>
+  <text x="618" y="240" font-size="13">katalog JSON lokal</text>
+  <path class="arrow" d="M276 180 L306 180"/>
+  <path class="arrow" d="M570 180 L600 180"/>
+</svg>
+<figcaption>Gambar 3 — Tiap perintah memanggil satu mesin; tiap mesin membaca satu-dua sumber pasif. Tidak ada mesin yang membaca sumber di luar daftar ini.</figcaption>
+</figure>
+</main>
+</body>
+</html>

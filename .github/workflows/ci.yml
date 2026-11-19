@@ -1,0 +1,139 @@
+name: CI
+
+# CI untuk dezz-osint (repo #44 — CLI Python + MCP + landing).
+# Job:
+#   ruff            — lint ketat tests/ + scripts/; syntax-only (E9) untuk dezz/.
+#   pytest          — 19 tes perilaku live (CLI subprocess, engine, MCP stdio).
+#   static-checks   — html-validate Node 24 + gate P0 anti-slop + tag OG.
+#   advisory-sweep  — OSV batch atas 13 dependensi produksi (pin ==).
+#   playwright-e2e  — landing statis di server lokal (desktop + mobile).
+#   smoke           — file yang di-deploy ada & tidak kosong.
+# Node 24 (html-validate 11 crash di Node 20, pola #29).
+# JANGAN `npx playwright install` di VM dev — hanya di CI.
+#
+# CATATAN LOCKFILE (19 Nov 2026): repo ini BELUM punya package-lock.json.
+# CI memakai `npm install` (bukan `npm ci`) dan TANPA `cache: npm` di
+# setup-node (keduanya butuh lockfile). Lockfile hasil instalasi CI
+# diunggah sebagai artifact (job static-checks) supaya bisa di-commit
+# belakangan.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Lint: ketat untuk kode baru, syntax-only untuk tree lama ────────────
+  ruff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Lint tests/ + scripts/ (ketat)
+        run: ruff check tests scripts
+
+      - name: Syntax check dezz/ (E9, tree lama)
+        run: ruff check dezz --select E9
+
+  # ── Tes perilaku live (tanpa mock) ──────────────────────────────────────
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependensi produksi + server + pytest
+        run: |
+          pip install -r requirements.txt
+          pip install -r server/requirements-server.txt
+          pip install pytest
+
+      - name: Pytest (19 tes live)
+        run: python3 -m pytest tests/test_cli.py -q
+
+  # ── Pemeriksaan statis: HTML + gate P0 + tag OG ────────────────────────
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validasi HTML
+        run: npx html-validate index.html
+
+      - name: Gate P0 + tag OG/Twitter
+        run: npm run validate
+
+      - name: Unggah package-lock hasil instalasi
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-lock
+          path: package-lock.json
+          if-no-files-found: warn
+
+  # ── Advisory sweep (OSV batch, tanpa auth) ─────────────────────────────
+  advisory-sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sweep 13 dependensi PyPI di OSV
+        run: python3 scripts/advisory-sweep.py
+
+  # ── E2E Playwright (landing statis, HANYA di CI) ──────────────────────
+  playwright-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: E2E landing (desktop + mobile)
+        run: npm run e2e
+
+  # ── Smoke: file deploy ada & tidak kosong ──────────────────────────────
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: File deploy ada & tidak kosong
+        run: |
+          for f in index.html styles.css app.js favicon.svg og-image.png; do
+            test -s "$f" || { echo "FAIL: $f hilang/kosong"; exit 1; }
+            echo "ok: $f ($(stat -c%s "$f") byte)"
+          done
