@@ -26,6 +26,8 @@ jobs:
   # ── Lint: ketat untuk kode baru, syntax-only untuk tree lama ────────────
   ruff:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -38,10 +40,21 @@ jobs:
         run: pip install ruff
 
       - name: Lint tests/ + scripts/ (ketat)
-        run: ruff check tests scripts
+        run: ruff check tests scripts 2>&1 | tee /tmp/ruff.log
 
       - name: Syntax check dezz/ (E9, tree lama)
         run: ruff check dezz --select E9
+
+      # DEBUG SEMENTARA (hapus sesudah diagnosis): log CI tidak bisa
+      # diunduh dari VM, jadi output ruff ditempel sebagai komentar PR.
+      - name: Debug ruff ke PR (sementara)
+        if: failure()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          { echo '```'; cat /tmp/ruff.log; echo '```'; } > /tmp/ruff-comment.txt
+          gh pr comment 1 --body-file /tmp/ruff-comment.txt
 
   # ── Tes perilaku live (tanpa mock) ──────────────────────────────────────
   pytest:
